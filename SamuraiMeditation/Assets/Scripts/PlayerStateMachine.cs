@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerStateMachine : MonoBehaviour
+{
+    public PlayerState State;
+
+    public void Initilized(PlayerState currentstate)
+    {
+        State = currentstate;
+        State.Enter();
+    }
+
+    public void ChangeState(PlayerState newstate)
+    {
+        State.Exit();
+        State = newstate;
+        State.Enter();
+    }
+}
