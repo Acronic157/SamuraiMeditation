@@ -26,7 +26,7 @@ public class IdleState : PlayerState
         if(Player.xInput != 0)
         {
             StateMachine.ChangeState(Player.WalkState);
-            Debug.Log("I am Still Standing");
+            Debug.Log("I am in Idle");
         }
 
         if(Input.GetKeyDown(KeyCode.K))
