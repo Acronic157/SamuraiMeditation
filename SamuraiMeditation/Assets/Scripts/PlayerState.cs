@@ -7,6 +7,7 @@ public class PlayerState
     public PlayerStateMachine StateMachine;
     public player Player;
     private string aniboolname;
+    
 
 
     public PlayerState(player _player,PlayerStateMachine _stateMachine,string _aniboolname)
@@ -18,7 +19,7 @@ public class PlayerState
 
     public virtual void Enter()
     {
-
+       Player.animator.SetBool(aniboolname,true);
     }
     public virtual void Update()
     {
@@ -27,7 +28,7 @@ public class PlayerState
 
     public virtual void Exit()
     {
-
+        Player.animator.SetBool(aniboolname, false);
     }
 
 }

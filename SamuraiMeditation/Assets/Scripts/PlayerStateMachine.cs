@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStateMachine : MonoBehaviour
+public class PlayerStateMachine 
 {
     public PlayerState State;
 
-    public void Initilized(PlayerState currentstate)
+    public void Initialize(PlayerState currentstate)
     {
         State = currentstate;
         State.Enter();
