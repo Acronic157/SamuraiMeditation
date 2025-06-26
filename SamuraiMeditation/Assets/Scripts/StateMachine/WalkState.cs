@@ -35,6 +35,15 @@ public class WalkState : PlayerState
         {
             StateMachine.ChangeState(Player.Attack);
             Player.rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            
+        }
+       
+        
+
+        if (Input.GetKeyDown(KeyCode.Space) && Player.GroundCheck())
+        {
+          StateMachine.ChangeState(Player.jump);
+        
         }
     }
 }
