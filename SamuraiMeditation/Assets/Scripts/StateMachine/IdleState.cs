@@ -28,7 +28,7 @@ public class IdleState : PlayerState
         if(Player.xInput != 0)
         {
             StateMachine.ChangeState(Player.WalkState);
-           // Debug.Log("I am in Idle");
+           
         }
 
         if(Input.GetKeyDown(KeyCode.K))
@@ -37,16 +37,15 @@ public class IdleState : PlayerState
            
             Player.rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
+
+
+        if (Input.GetKeyDown(KeyCode.Space) && Player.GroundCheck())
+        {
+
+
+            Player.rb.velocity = new Vector2(0, Player.JumpHeight);
+           
+            StateMachine.ChangeState(Player.jump);
        
-
-      if (Input.GetKeyDown(KeyCode.Space) && Player.GroundCheck())
-{
-        
- 
-         Player.rb.velocity = new Vector2(0, Player.JumpHeight);
-
-         StateMachine.ChangeState(Player.jump);
-}
-        
-    }
+    }   }
 }

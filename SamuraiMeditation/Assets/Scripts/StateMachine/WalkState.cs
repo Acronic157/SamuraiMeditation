@@ -28,7 +28,7 @@ public class WalkState : PlayerState
         if(Player.xInput == 0)
         {
             StateMachine.ChangeState(Player.Idlestate);
-            Debug.Log("I am Walking");
+            
         }
 
         if(Input.GetKeyDown(KeyCode.K))

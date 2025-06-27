@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class player : MonoBehaviour
@@ -12,7 +13,7 @@ public class player : MonoBehaviour
     public WallSlideState WallSlide { get; private set; }
     public Jump jump { get; private set; }
     public AirState air { get; private set; }
-    public WallJump wallJump { get; private set; }
+    public WallJump WallJump { get; private set; }
 
     public float xInput;
     public float Speed;
@@ -23,13 +24,13 @@ public class player : MonoBehaviour
 
     public LayerMask Wall;
     public GameObject WallCheck;
+    public GameObject GroundDetect;
     public LayerMask Ground;
 
     public float JumpHeight;
     public float WallSlipSpeed;
-    public float Jump;
-    public float WallJumpCoolDown;
-
+    
+   
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,7 +43,7 @@ public class player : MonoBehaviour
         WallSlide = new WallSlideState(this, StateMachine, "WallSlide");
         jump = new Jump(this, StateMachine, "Jump");
         air = new AirState(this, StateMachine, "Jump");
-        wallJump = new WallJump(this, StateMachine, "Jump");
+        WallJump = new WallJump(this, StateMachine, "Jump");
 
         StateMachine.Initialize(Idlestate);
     }
@@ -52,7 +53,6 @@ public class player : MonoBehaviour
         Run();
         StateMachine.State.Update();
         FlipController();
-
         animator.SetFloat("yVelocity", rb.velocity.y);
     }
 
@@ -65,13 +65,16 @@ public class player : MonoBehaviour
     public void Run()
     {
         xInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(xInput * Speed, rb.velocity.y);
+        if (!(StateMachine.State is WallSlideState))
+        {
+            rb.velocity = new Vector2(xInput * Speed, rb.velocity.y);
+        }
     }
 
     public void FlipThePlayer()
     {
         FlipDirright = !FlipDirright;
-        Flip = FlipDirright ? 1 : -1;
+        Flip *= -1;
         transform.Rotate(0, 180, 0);
     }
 
@@ -85,6 +88,8 @@ public class player : MonoBehaviour
         {
             FlipThePlayer();
         }
+
+       
     }
 
     public void AttackStop()
@@ -92,24 +97,33 @@ public class player : MonoBehaviour
         Attack.AttackStopp();
     }
 
-    public bool IsTouchingWall()
-    {
-        Vector3 direction = FlipDirright ? Vector3.right : Vector3.left;
-        return Physics2D.Raycast(WallCheck.transform.position, direction, 0.5f, Wall);
-    }
+    public bool WallChecking() =>
+        Physics2D.Raycast(WallCheck.transform.position, Vector3.right, 0.5f, Wall);
+
+    public bool WallChecking2() =>
+        Physics2D.Raycast(WallCheck.transform.position, Vector3.left, 0.6f, Wall);
 
     public bool GroundCheck() =>
-        Physics2D.Raycast(transform.position, Vector2.down, 1f, Ground);
+        Physics2D.Raycast(GroundDetect.transform.position, Vector2.down, 1.2f, Ground);
+
+    public void ResetAllAnimBools()
+    {
+        animator.SetBool("Idle", false);
+        animator.SetBool("Walk", false);
+        animator.SetBool("Jump", false);
+        animator.SetBool("WallSlide", false);
+        animator.SetBool("Attack", false);
+    }
 
     private void OnDrawGizmos()
     {
         if (WallCheck == null) return;
 
-        Gizmos.color = Color.green;
-        Vector3 dir = FlipDirright ? Vector3.right : Vector3.left;
-        Gizmos.DrawLine(WallCheck.transform.position, WallCheck.transform.position + dir * 0.5f);
-
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(WallCheck.transform.position, WallCheck.transform.position + Vector3.right * 0.5f);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(WallCheck.transform.position, WallCheck.transform.position + Vector3.left * 0.6f );
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * 1f);
+        Gizmos.DrawLine(GroundDetect.transform.position, GroundDetect.transform.position + Vector3.down * 1.2f);
     }
 }

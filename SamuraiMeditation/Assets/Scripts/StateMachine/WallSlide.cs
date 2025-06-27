@@ -1,9 +1,9 @@
+using System;
 using UnityEngine;
 
 public class WallSlideState : PlayerState
 {
-    private float wallSlideTimer;
-    private bool canExitWallSlide;
+   
 
     public WallSlideState(player _player, PlayerStateMachine _stateMachine, string _aniboolname)
         : base(_player, _stateMachine, _aniboolname)
@@ -13,10 +13,9 @@ public class WallSlideState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Entered WallSlide");
-        wallSlideTimer = 0.2f; // Minimum slide duration
-        canExitWallSlide = false;
-        Player.SetVelocity(0, -Player.WallSlipSpeed);
+        Player.rb.gravityScale = 0;
+        Player.rb.velocity = Vector2.zero;
+        
     }
 
     public override void Exit()
@@ -28,51 +27,30 @@ public class WallSlideState : PlayerState
     {
         base.Update();
 
-        // Wall jump
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(Player.GroundCheck())
         {
-            Debug.Log("WallJump initiated from slide");
-            StateMachine.ChangeState(Player.wallJump);
-            return;
+            StateMachine.ChangeState(Player.Idlestate);
+            Player.rb.gravityScale = 4f;
+        }
+        else
+        {
+            StateMachine.ChangeState(Player.WallSlide);
         }
 
-        // Timer countdown
-        wallSlideTimer -= Time.deltaTime;
-        canExitWallSlide = wallSlideTimer <= 0;
-
-        // Maintain slide velocity
-        float slideYVelocity = Mathf.Max(-Player.WallSlipSpeed, Player.rb.velocity.y);
-
-        // Wall stick X force
-        float stickX = 0;
-        if (Mathf.Sign(Player.xInput) == Player.Flip)
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            stickX = Player.xInput * 3f;
+            Player.rb.gravityScale = 4f;
+            Player.rb.velocity = new Vector2(Player.rb.velocity.x, Player.rb.velocity.y);
+            StateMachine.ChangeState(Player.Idlestate);
+
         }
+            Player.xInput = 0;
 
-        Player.SetVelocity(stickX, slideYVelocity);
+       
 
-        // Exit conditions
-        if (canExitWallSlide)
-        {
-            if (Player.GroundCheck())
-            {
-                StateMachine.ChangeState(Player.Idlestate);
-                return;
-            }
+      
 
-            if (!Player.IsTouchingWall())
-            {
-                StateMachine.ChangeState(Player.air);
-                return;
-            }
 
-            // Moving away from wall
-            if (Mathf.Abs(Player.xInput) > 0.1f && Mathf.Sign(Player.xInput) != Player.Flip)
-            {
-                StateMachine.ChangeState(Player.air);
-                return;
-            }
-        }
+
     }
 }

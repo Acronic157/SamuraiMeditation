@@ -21,7 +21,7 @@ public class AirState : PlayerState
     {
         base.Update();
 
-        if (Player.IsTouchingWall() && Player.rb.velocity.y < 0)
+        if (Player.WallChecking()||Player.WallChecking2() && Player.rb.velocity.y < 0)
         {
             StateMachine.ChangeState(Player.WallSlide);
             return;
