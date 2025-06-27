@@ -42,7 +42,7 @@ public class IdleState : PlayerState
         if (Input.GetKeyDown(KeyCode.Space) && Player.GroundCheck())
         {
 
-
+            Debug.Log("Jump pressed");
             Player.rb.velocity = new Vector2(0, Player.JumpHeight);
            
             StateMachine.ChangeState(Player.jump);

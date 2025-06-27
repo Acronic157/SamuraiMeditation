@@ -2,8 +2,12 @@ using System.Collections;
 using UnityEngine;
 
 public class WallJump : PlayerState
-{
-    public WallJump(player _player, PlayerStateMachine _stateMachine, string _aniboolname): base(_player, _stateMachine, _aniboolname)
+{   
+    
+    // Fabian:
+    public float wallJumpXForce = 10f;
+    public float wallJumpYForce = 12f;
+    public WallJump(player _player, PlayerStateMachine _stateMachine, string _aniboolname) : base(_player, _stateMachine, _aniboolname)
     {
 
     }
@@ -12,6 +16,12 @@ public class WallJump : PlayerState
     {
         base.Enter();
 
+        //Fabian
+        int wallDirection = 1;
+        Debug.Log("Is in WallJump State");
+        Player.rb.gravityScale = 4f;
+        Player.rb.velocity = new Vector2(wallDirection * wallJumpXForce, wallJumpYForce);
+        // If wallcheck -> WallSlide State
         
     }
 
@@ -23,7 +33,11 @@ public class WallJump : PlayerState
     public override void Update()
     {
         base.Update();
-
+        if (Player.GroundCheck())
+        {
+            StateMachine.ChangeState(Player.Idlestate);
+            Debug.Log("return Idlestate");
+        }
 
         
     }

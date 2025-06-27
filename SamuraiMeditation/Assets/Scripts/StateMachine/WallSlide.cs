@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WallSlideState : PlayerState
 {
-   
+
 
     public WallSlideState(player _player, PlayerStateMachine _stateMachine, string _aniboolname)
         : base(_player, _stateMachine, _aniboolname)
@@ -27,7 +27,7 @@ public class WallSlideState : PlayerState
     {
         base.Update();
 
-        if(Player.GroundCheck())
+        if (Player.GroundCheck())
         {
             StateMachine.ChangeState(Player.Idlestate);
             Player.rb.gravityScale = 4f;
@@ -35,6 +35,16 @@ public class WallSlideState : PlayerState
         else
         {
             StateMachine.ChangeState(Player.WallSlide);
+            Debug.Log("WallSlide");
+
+            // Fabians Code, and idk if its right, but yeah
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                
+                StateMachine.ChangeState(Player.WallJump);
+                Debug.Log("Walljump State activated");
+                
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.S))

@@ -7,12 +7,11 @@ public class PlayerOneWayPlatform : MonoBehaviour
     public float waitForSeconds = 1f;
     [SerializeField] private CapsuleCollider2D playerCollider;
 
-    private CompositeCollider2D oneWayPlatformComposite; // NEU
+    private CompositeCollider2D oneWayPlatformComposite;
 
     void Start()
     {
-        // Finde die Tilemap mit dem CompositeCollider2D
-        GameObject platformTilemap = GameObject.FindWithTag("OneWayPlatform"); // oder by Name: "DeinTilemapObjekt"
+        GameObject platformTilemap = GameObject.FindWithTag("OneWayPlatform");
         if (platformTilemap != null)
         {
             oneWayPlatformComposite = platformTilemap.GetComponent<CompositeCollider2D>();
