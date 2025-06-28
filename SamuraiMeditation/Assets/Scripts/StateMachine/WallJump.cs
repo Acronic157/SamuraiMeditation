@@ -21,8 +21,9 @@ public class WallJump : PlayerState
         Debug.Log("Is in WallJump State");
         Player.rb.gravityScale = 4f;
         Player.rb.velocity = new Vector2(wallDirection * wallJumpXForce, wallJumpYForce);
+        Player.rb.AddForce(new Vector2(wallDirection * wallJumpXForce, wallJumpYForce) * Time.deltaTime);
         // If wallcheck -> WallSlide State
-        
+
     }
 
     public override void Exit()
