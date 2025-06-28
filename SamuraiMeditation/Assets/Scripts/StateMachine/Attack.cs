@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack : PlayerState
 {
-    bool IsAttacking;
+    private bool IsAttacking;
     public Attack(player _player, PlayerStateMachine _stateMachine, string _aniboolname) : base(_player, _stateMachine, _aniboolname)
     {
     }
