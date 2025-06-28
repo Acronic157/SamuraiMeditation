@@ -37,7 +37,7 @@ public class WallSlideState : PlayerState
             StateMachine.ChangeState(Player.WallSlide);
             Debug.Log("WallSlide");
 
-            // Fabians Code, and idk if its right, but yeah
+           
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 

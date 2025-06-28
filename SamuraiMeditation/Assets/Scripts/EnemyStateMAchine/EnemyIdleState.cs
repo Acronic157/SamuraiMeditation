@@ -15,7 +15,7 @@ public class EnemyIdleState : EnemyState
     public override void Enter()
     {
         base.Enter();
-       
+        enemy.StartCoroutine(changeDetect());
     }
 
     public override void Exit()

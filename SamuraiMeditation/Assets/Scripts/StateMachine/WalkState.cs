@@ -41,9 +41,9 @@ public class WalkState : PlayerState
         
         if (Input.GetKeyDown(KeyCode.Space) && Player.GroundCheck())
         {
-            //This Line fixed it ----------------------------
+           
             Player.rb.velocity = new Vector2(0, Player.JumpHeight);
-            // ----------------------------------------------
+            
             StateMachine.ChangeState(Player.jump);
         }
     }

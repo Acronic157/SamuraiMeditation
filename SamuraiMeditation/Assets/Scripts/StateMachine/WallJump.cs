@@ -39,7 +39,10 @@ public class WallJump : PlayerState
             StateMachine.ChangeState(Player.Idlestate);
             Debug.Log("return Idlestate");
         }
-
+        if(Player.WallChecking()||Player.WallChecking2())
+        {
+           // StateMachine.ChangeState(Player.air);
+        }
         
     }
 

@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     public GameObject Ground;
     public GameObject wall;
     public LayerMask LayerMask;
+    public LayerMask Slope_Wall;
 
     [Header("Flipinfo")]
     public int Flipdir = 1;
@@ -60,7 +61,7 @@ public class Enemy : MonoBehaviour
 
 
     public bool GroundCheck => Physics2D.Raycast(Ground.transform.position, Vector2.down, 0.3f, LayerMask);
-    public bool WallCheck => Physics2D.Raycast(wall.transform.position,Vector2.left, 1f, LayerMask);
+    public bool WallCheck => Physics2D.Raycast(wall.transform.position,Vector2.left, 0.5f, Slope_Wall);
 
 
     private void OnDrawGizmos()
@@ -68,7 +69,7 @@ public class Enemy : MonoBehaviour
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(Ground.transform.position, Ground.transform.position + Vector3.down * 0.3f);
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(Ground.transform.position,Ground.transform.position + Vector3.left * 1f);
+        Gizmos.DrawLine(wall.transform.position,wall.transform.position + Vector3.left * 0.5f);
     }
 
 }

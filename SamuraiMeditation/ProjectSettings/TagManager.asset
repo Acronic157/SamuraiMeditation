@@ -13,7 +13,7 @@ TagManager:
   - Water
   - UI
   - Wall
-  - 
+  - Slope
   - 
   - 
   - 
@@ -41,4 +41,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 716195779
+    locked: 0
+  - name: Forground
+    uniqueID: 2707302999
     locked: 0
