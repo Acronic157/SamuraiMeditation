@@ -28,6 +28,8 @@ public class EnemyIdleState : EnemyState
         base.Update();
         enemy.StartCoroutine(changeDetect());
        
+
+       
     }
 
     public IEnumerator changeDetect()
@@ -35,6 +37,7 @@ public class EnemyIdleState : EnemyState
         yield return new WaitForSeconds(3);
         enemyStateMachine.Changestate(enemy.WalkState);
     }
+    
 
    
 }

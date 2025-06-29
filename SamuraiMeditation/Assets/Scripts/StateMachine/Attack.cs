@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Attack : PlayerState
 {
@@ -12,6 +13,12 @@ public class Attack : PlayerState
     public override void Enter()
     {
         base.Enter();
+        Collider2D[] hitenemies =  Physics2D.OverlapCircleAll(Player.Attackmid.position, Player.AttackRange, Player.Enemy);
+
+        foreach(Collider2D Enemy in hitenemies)
+        {
+            Enemy.GetComponent<Enemy>().TakeDamage(20);
+        }
     }
 
     public override void Exit()
@@ -22,7 +29,6 @@ public class Attack : PlayerState
     public override void Update()
     {
         base.Update();
-
         
     }
 

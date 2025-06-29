@@ -38,6 +38,11 @@ public class player : MonoBehaviour
     public GameObject Ignorecol;
     private Collider2D playerCollider;
 
+    //Attack Range
+    public Transform Attackmid;
+    public float AttackRange;
+    public LayerMask Enemy;
+
     private void Awake()
     {
         // Get components
@@ -128,14 +133,7 @@ public class player : MonoBehaviour
     public bool GroundCheck() =>
         Physics2D.Raycast(GroundDetect.transform.position, Vector2.down, 1.2f, Ground);
 
-    public void ResetAllAnimBools()
-    {
-        animator.SetBool("Idle", false);
-        animator.SetBool("Walk", false);
-        animator.SetBool("Jump", false);
-        animator.SetBool("WallSlide", false);
-        animator.SetBool("Attack", false);
-    }
+   
 
     private void OnDrawGizmos()
     {
@@ -147,5 +145,7 @@ public class player : MonoBehaviour
         Gizmos.DrawLine(WallCheck.transform.position, WallCheck.transform.position + Vector3.left * 0.6f);
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(GroundDetect.transform.position, GroundDetect.transform.position + Vector3.down * 1.2f);
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(Attackmid.position,AttackRange);
     }
 }
