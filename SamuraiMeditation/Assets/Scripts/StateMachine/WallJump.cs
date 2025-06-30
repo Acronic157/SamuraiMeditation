@@ -59,7 +59,8 @@ public class WallJump : PlayerState
         }
         if(Player.WallChecking()||Player.WallChecking2())
         {
-           StateMachine.ChangeState(Player.air);
+           //StateMachine.ChangeState(Player.air);
+           
         }
 
         
