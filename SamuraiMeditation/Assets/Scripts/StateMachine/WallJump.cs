@@ -9,7 +9,7 @@ public class WallJump : PlayerState
     public float wallJumpYForce = 12f;
     public float wallJumpTime = 0.2f;
     public int wallDirection = 0;
-    //public bool wallJumpEnded = false;
+    public bool canWallJump = true;
     public WallJump(player _player, PlayerStateMachine _stateMachine, string _aniboolname) : base(_player, _stateMachine, _aniboolname)
     {
 
@@ -19,16 +19,23 @@ public class WallJump : PlayerState
     {
         base.Enter();
 
+        wallJumpTime = 0.2f;
+        canWallJump = true;
+
         // right Wall
         if (Player.WallChecking())
         {
             wallDirection = 1;
+            Player.FlipDirright = true;
         }
         // left Wall
         else if (Player.WallChecking2())
         {
             wallDirection = -1;
+            Player.FlipDirright = false;
         }
+
+        
 
     }
 
@@ -48,8 +55,7 @@ public class WallJump : PlayerState
 
         if (wallJumpTime <= 0.0f)
         {
-            //wallJumpEnded = true;
-            StateMachine.ChangeState(Player.air);
+            canWallJump = false;
         }
 
         if (Player.GroundCheck())
@@ -63,12 +69,12 @@ public class WallJump : PlayerState
         }
 
         
-        
-        Debug.Log("Is in WallJump State");
-        Player.rb.gravityScale = 4f;
-        Player.rb.velocity = new Vector2(wallDirection * wallJumpXForce, wallJumpYForce);
-        //Player.rb.AddForce(new Vector2(wallDirection * wallJumpXForce, wallJumpYForce) * Time.deltaTime);
-
+        if (canWallJump)
+        {
+            Debug.Log("Is in WallJump State");
+            Player.rb.gravityScale = 4f;
+            Player.rb.velocity = new Vector2(wallDirection * wallJumpXForce, wallJumpYForce);
+        }
         
         
     }
