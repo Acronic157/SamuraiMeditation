@@ -13,7 +13,7 @@ public class WallSlideState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Player.rb.gravityScale = 0;
+        Player.rb.gravityScale = 4f;
         Player.rb.velocity = Vector2.zero;
         
     }
@@ -54,11 +54,11 @@ public class WallSlideState : PlayerState
             StateMachine.ChangeState(Player.Idlestate);
 
         }
-            Player.xInput = 0;
+         Player.xInput = 0;
 
-       
 
-      
+
+
 
 
 

@@ -2,82 +2,70 @@ using System.Collections;
 using UnityEngine;
 
 public class WallJump : PlayerState
-{   
-    
-    // Fabian:
-    public float wallJumpXForce = 10f;
-    public float wallJumpYForce = 12f;
-    public float wallJumpTime = 0.2f;
-    public int wallDirection = 0;
-    public bool canWallJump = true;
-    public WallJump(player _player, PlayerStateMachine _stateMachine, string _aniboolname) : base(_player, _stateMachine, _aniboolname)
-    {
+{
+    private float wallJumpTimer = 0.2f;
+    private bool jumpApplied = false;
+    private int wallDirection = 0;
 
+    public float wallJumpXForce = -50f;
+    public float wallJumpYForce = 25f;
+
+    public WallJump(player _player, PlayerStateMachine _stateMachine, string _aniboolname)
+        : base(_player, _stateMachine, _aniboolname)
+    {
     }
 
     public override void Enter()
     {
         base.Enter();
 
-        wallJumpTime = 0.2f;
-        canWallJump = true;
+        wallJumpTimer = 0.2f;
+        jumpApplied = false;
 
-        // right Wall
+        // Determine wall direction and flip
         if (Player.WallChecking())
         {
             wallDirection = 1;
-            Player.FlipDirright = true;
+           
+            
         }
-        // left Wall
         else if (Player.WallChecking2())
         {
             wallDirection = -1;
-            Player.FlipDirright = false;
+           
+           
         }
 
-        
+        Player.rb.gravityScale = 4f;
 
-    }
-
-    public override void Exit()
-    {
-        //wallJumpEnded = false;
-        base.Exit();
+        // Apply the jump force only once
+        Player.rb.velocity = new Vector2(wallDirection * wallJumpXForce, wallJumpYForce);
+        jumpApplied = true;
+        Debug.Log("Wall Jump Applied");
     }
 
     public override void Update()
     {
         base.Update();
 
-        //Debug.Log(wallJumpEnded);
+        wallJumpTimer -= Time.deltaTime;
 
-        wallJumpTime -= Time.deltaTime;
-
-        if (wallJumpTime <= 0.0f)
+        if (wallJumpTimer <= 0f)
         {
-            canWallJump = false;
+            StateMachine.ChangeState(Player.air);
         }
 
         if (Player.GroundCheck())
         {
             StateMachine.ChangeState(Player.Idlestate);
-            Debug.Log("return Idlestate");
         }
-        if(Player.WallChecking()||Player.WallChecking2())
-        {
-           StateMachine.ChangeState(Player.air);
-        }
-
-        
-        if (canWallJump)
-        {
-            Debug.Log("Is in WallJump State");
-            Player.rb.gravityScale = 4f;
-            Player.rb.velocity = new Vector2(wallDirection * wallJumpXForce, wallJumpYForce);
-        }
-        
-        
+       
+       
     }
 
-   
+    public override void Exit()
+    {
+        base.Exit();
+        jumpApplied = false;
+    }
 }
