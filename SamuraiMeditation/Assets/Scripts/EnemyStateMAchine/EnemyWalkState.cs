@@ -41,6 +41,12 @@ public class EnemyWalkState : EnemyState
             enemy.Flip();
             enemy.rb.velocity = Vector2.zero;
         }
+
+        if(enemy.AttackRange)
+        {
+            enemy.rb.velocity = Vector2.zero.normalized;
+            enemyStateMachine.Changestate(enemy.StateIdle);
+        }
         
     }
 }

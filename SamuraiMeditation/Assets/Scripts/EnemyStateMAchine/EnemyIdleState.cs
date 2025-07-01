@@ -15,7 +15,7 @@ public class EnemyIdleState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        enemy.StartCoroutine(changeDetect());
+     
     }
 
     public override void Exit()
@@ -26,9 +26,15 @@ public class EnemyIdleState : EnemyState
     public override void Update()
     {
         base.Update();
-        enemy.StartCoroutine(changeDetect());
-       
-
+       if(!enemy.AttackRange)
+       {
+            enemyStateMachine.Changestate(enemy.WalkState);
+            enemy.StartCoroutine(changeDetect());
+       }
+        else
+        {
+            enemyStateMachine.Changestate(this);
+        }
        
     }
 
@@ -37,6 +43,7 @@ public class EnemyIdleState : EnemyState
         yield return new WaitForSeconds(3);
         enemyStateMachine.Changestate(enemy.WalkState);
     }
+   
     
 
    

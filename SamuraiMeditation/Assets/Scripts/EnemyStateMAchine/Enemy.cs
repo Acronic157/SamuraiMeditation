@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     public EnemyIdleState StateIdle { get; private set; }
     public EnemyWalkState WalkState { get; private set; }
     public Enemyhurt hurtState { get; private set; }
+    public EnemyAttack Attack { get; private set; }
 
     [Header("Components")]
     public Animator animator;
@@ -24,6 +25,9 @@ public class Enemy : MonoBehaviour
     public GameObject wall;
     public LayerMask LayerMask;
     public LayerMask Slope_Wall;
+    public LayerMask Player;
+    public GameObject Attackray;
+    
 
     [Header("Flipinfo")]
     public int Flipdir = 1;
@@ -42,6 +46,7 @@ public class Enemy : MonoBehaviour
         WalkState = new EnemyWalkState(this, StateMachine, "Walk");
         hurtState = new Enemyhurt (this, StateMachine, "Hurt");
         StateMachine.Initialized(StateIdle);
+        Attack = new EnemyAttack(this, StateMachine, "Attack");
         
     }
 
@@ -68,6 +73,7 @@ public class Enemy : MonoBehaviour
 
     public bool GroundCheck => Physics2D.Raycast(Ground.transform.position, Vector2.down, 0.3f, LayerMask);
     public bool WallCheck => Physics2D.Raycast(wall.transform.position,Vector2.left, 0.5f, Slope_Wall);
+    public bool AttackRange => Physics2D.Raycast(Attackray.transform.position, Vector2.right, 5f, Player);
 
 
     private void OnDrawGizmos()
@@ -76,6 +82,8 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawLine(Ground.transform.position, Ground.transform.position + Vector3.down * 0.3f);
         Gizmos.color = Color.green;
         Gizmos.DrawLine(wall.transform.position,wall.transform.position + Vector3.left * 0.5f);
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(Attackray.transform.position,Attackray.transform.position + Vector3.right * 5f);
     }
 
     public void TakeDamage(int Damage)
