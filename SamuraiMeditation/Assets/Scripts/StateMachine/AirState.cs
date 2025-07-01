@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class AirState : PlayerState
 {
+
+    public bool wallSlideLeft = false;
+    public bool wallSlideRight = false;
+    
     public AirState(player _player, PlayerStateMachine _stateMachine, string _aniboolname)
         : base(_player, _stateMachine, _aniboolname)
     {
@@ -21,11 +25,26 @@ public class AirState : PlayerState
     {
         base.Update();
 
-        if (Player.WallChecking()||Player.WallChecking2() && Player.rb.velocity.y < 0)
+        if (Player.WallChecking() && Player.rb.velocity.y < 0 && wallSlideRight == false)
         {
+            wallSlideRight = true;
+            wallSlideLeft = false;
             StateMachine.ChangeState(Player.WallSlide);
-            return;
         }
+
+        if (Player.WallChecking2() && Player.rb.velocity.y < 0 && wallSlideLeft == false)
+        {
+            wallSlideRight = false;
+            wallSlideLeft = true;
+            StateMachine.ChangeState(Player.WallSlide);
+        }
+
+
+        //if (Player.WallChecking()||Player.WallChecking2() && Player.rb.velocity.y < 0)
+        //{
+        //    StateMachine.ChangeState(Player.WallSlide);
+        //    return;
+        //}
 
         if (Player.GroundCheck())
         {

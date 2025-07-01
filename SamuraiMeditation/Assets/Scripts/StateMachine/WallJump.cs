@@ -7,8 +7,8 @@ public class WallJump : PlayerState
     private bool jumpApplied = false;
     private int wallDirection = 0;
 
-    public float wallJumpXForce = -50f;
-    public float wallJumpYForce = 25f;
+    public float wallJumpXForce = 0f;
+    public float wallJumpYForce = 15f;
 
     public WallJump(player _player, PlayerStateMachine _stateMachine, string _aniboolname)
         : base(_player, _stateMachine, _aniboolname)
@@ -19,29 +19,23 @@ public class WallJump : PlayerState
     {
         base.Enter();
 
-        wallJumpTimer = 0.2f;
+        wallJumpTimer = 0.1f;
         jumpApplied = false;
 
-        // Determine wall direction and flip
-        if (Player.WallChecking())
-        {
-            wallDirection = 1;
-           
-            
-        }
-        else if (Player.WallChecking2())
-        {
+        // Wandrichtung eindeutig bestimmen
+        if (Player.WallChecking() && !Player.WallChecking2())
             wallDirection = -1;
-           
-           
-        }
+        else if (Player.WallChecking2() && !Player.WallChecking())
+            wallDirection = 1;
+        else
+            wallDirection = Player.Flip; // Fallback, falls keine Wand erkannt
 
         Player.rb.gravityScale = 4f;
 
-        // Apply the jump force only once
+        // Velocity nur einmal setzen
         Player.rb.velocity = new Vector2(wallDirection * wallJumpXForce, wallJumpYForce);
         jumpApplied = true;
-        Debug.Log("Wall Jump Applied");
+        Debug.Log("Wall Jump Applied, wallDirection: " + wallDirection + ", velocity: " + Player.rb.velocity);
     }
 
     public override void Update()

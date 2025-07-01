@@ -13,7 +13,7 @@ public class WallSlideState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Player.rb.gravityScale = 0f;
+        Player.rb.gravityScale = 2f;
         Player.rb.velocity = Vector2.zero;
         
     }
@@ -32,20 +32,20 @@ public class WallSlideState : PlayerState
             StateMachine.ChangeState(Player.Idlestate);
             Player.rb.gravityScale = 4f;
         }
-        else
-        {
-            StateMachine.ChangeState(Player.WallSlide);
-            Debug.Log("WallSlide");
+        //else
+        //{
+        //    StateMachine.ChangeState(Player.WallSlide);
+        //    Debug.Log("WallSlide");
 
            
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
                 
-                StateMachine.ChangeState(Player.WallJump);
-                Debug.Log("Walljump State activated");
+            StateMachine.ChangeState(Player.WallJump);
+            Debug.Log("Walljump State activated");
                 
-            }
         }
+        //}
 
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -54,7 +54,7 @@ public class WallSlideState : PlayerState
             StateMachine.ChangeState(Player.Idlestate);
 
         }
-         Player.xInput = 0;
+         //Player.xInput = 0;
 
 
 

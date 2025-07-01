@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class IdleState : PlayerState
 {
+
+
+
     public IdleState(player _player, PlayerStateMachine _stateMachine, string _aniboolname) : base(_player, _stateMachine, _aniboolname)
     {
     }
@@ -13,6 +16,8 @@ public class IdleState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        Player.air.wallSlideLeft = false;
+        Player.air.wallSlideRight = false;
 
     }
 
