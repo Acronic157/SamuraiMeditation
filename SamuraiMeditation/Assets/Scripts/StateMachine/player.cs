@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 public class player : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class player : MonoBehaviour
     public Jump jump { get; private set; }
     public AirState air { get; private set; }
     public WallJump WallJump { get; private set; }
+    public Dead dead { get; private set; }
 
     // Movement
     public float xInput;
@@ -43,6 +45,10 @@ public class player : MonoBehaviour
     public float AttackRange;
     public LayerMask Enemy;
 
+    //Health System for player
+    public int maxHealth = 100;
+    public int CurrentHealth;
+
     private void Awake()
     {
         // Get components
@@ -59,6 +65,8 @@ public class player : MonoBehaviour
         jump = new Jump(this, StateMachine, "Jump");
         air = new AirState(this, StateMachine, "Jump");
         WallJump = new WallJump(this, StateMachine, "Jump");
+        dead = new Dead(this, StateMachine, "Dead");
+
 
         StateMachine.Initialize(Idlestate);
     }
@@ -75,6 +83,8 @@ public class player : MonoBehaviour
             }
            
         }
+
+        CurrentHealth = maxHealth;
     }
 
     private void Update()
@@ -148,4 +158,17 @@ public class player : MonoBehaviour
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(Attackmid.position,AttackRange);
     }
+
+    public void TakeDamage(int Damage)
+    {
+        CurrentHealth -= Damage;
+        if (CurrentHealth < 0)
+        {
+            StateMachine.ChangeState(dead);
+            
+        }
+    }
+
+   
+
 }

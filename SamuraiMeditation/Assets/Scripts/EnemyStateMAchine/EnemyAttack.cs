@@ -14,7 +14,7 @@ public class EnemyAttack : EnemyState
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(enemy.Attackmid.position,enemy.AttackArea,enemy.Players);
         foreach(Collider2D hitPlayer2 in hitPlayer)
         {
-            hitPlayer2.GetComponent<Collider2D>();
+            hitPlayer2.GetComponent<player>().TakeDamage(100);
         }
     }
 
@@ -30,5 +30,6 @@ public class EnemyAttack : EnemyState
         {
             enemyStateMachine.Changestate(enemy.StateIdle);
         }
+       
     }
 }

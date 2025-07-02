@@ -21,5 +21,6 @@ public class Dead : PlayerState
     public override void Update()
     {
         base.Update();
+        
     }
 }
