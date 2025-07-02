@@ -51,7 +51,7 @@ public class WallSlideState : PlayerState
         {
             Player.rb.gravityScale = 4f;
             Player.rb.velocity = new Vector2(Player.rb.velocity.x, Player.rb.velocity.y);
-            StateMachine.ChangeState(Player.Idlestate);
+            StateMachine.ChangeState(Player.air);
 
         }
          //Player.xInput = 0;
