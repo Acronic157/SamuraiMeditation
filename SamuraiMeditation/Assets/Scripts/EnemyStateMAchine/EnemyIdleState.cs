@@ -35,7 +35,10 @@ public class EnemyIdleState : EnemyState
         {
             enemyStateMachine.Changestate(this);
         }
-       
+       if(enemy.Attacknow)
+        {
+            enemyStateMachine.Changestate(enemy.Attack);
+        }
     }
 
     public IEnumerator changeDetect()

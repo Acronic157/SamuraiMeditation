@@ -54,7 +54,7 @@ public class WallSlideState : PlayerState
             StateMachine.ChangeState(Player.air);
 
         }
-         //Player.xInput = 0;
+         Player.xInput = 0;
 
 
 

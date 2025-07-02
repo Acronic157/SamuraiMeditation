@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     public LayerMask Slope_Wall;
     public LayerMask Player;
     public GameObject Attackray;
+    public GameObject Attackhere;
     
 
     [Header("Flipinfo")]
@@ -38,6 +39,12 @@ public class Enemy : MonoBehaviour
     [Header("Health Info")]
     public int MaxHealth = 100;
     public int CurrentHealth;
+
+    // Attack Player
+    [Header("Attack Player Info")]
+    public Transform Attackmid;
+    public float AttackArea;
+    public LayerMask Players;
 
     private void Awake()
     {
@@ -74,6 +81,7 @@ public class Enemy : MonoBehaviour
     public bool GroundCheck => Physics2D.Raycast(Ground.transform.position, Vector2.down, 0.3f, LayerMask);
     public bool WallCheck => Physics2D.Raycast(wall.transform.position,Vector2.left, 0.5f, Slope_Wall);
     public bool AttackRange => Physics2D.Raycast(Attackray.transform.position, Vector2.right, 5f, Player);
+    public bool Attacknow => Physics2D.Raycast(Attackhere.transform.position, Vector2.right, 1f, Player);
 
 
     private void OnDrawGizmos()
@@ -84,6 +92,10 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawLine(wall.transform.position,wall.transform.position + Vector3.left * 0.5f);
         Gizmos.color = Color.red;
         Gizmos.DrawLine(Attackray.transform.position,Attackray.transform.position + Vector3.right * 5f);
+        Gizmos.color = Color.gray;
+        Gizmos.DrawLine(Attackhere.transform.position, Attackhere.transform.position + Vector3.right * 1f);
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(Attackmid.position, AttackArea);
     }
 
     public void TakeDamage(int Damage)

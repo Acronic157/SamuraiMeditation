@@ -11,6 +11,11 @@ public class EnemyAttack : EnemyState
     public override void Enter()
     {
         base.Enter();
+        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(enemy.Attackmid.position,enemy.AttackArea,enemy.Players);
+        foreach(Collider2D hitPlayer2 in hitPlayer)
+        {
+            hitPlayer2.GetComponent<Collider2D>();
+        }
     }
 
     public override void Exit()
@@ -21,5 +26,9 @@ public class EnemyAttack : EnemyState
     public override void Update()
     {
         base.Update();
+        if(!enemy.Attacknow)
+        {
+            enemyStateMachine.Changestate(enemy.StateIdle);
+        }
     }
 }
