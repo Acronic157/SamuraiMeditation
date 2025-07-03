@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class player : MonoBehaviour
@@ -162,12 +163,20 @@ public class player : MonoBehaviour
     public void TakeDamage(int Damage)
     {
         CurrentHealth -= Damage;
-        if (CurrentHealth < 0)
+        if (CurrentHealth <= 0)
         {
             StateMachine.ChangeState(dead);
-            
+           
         }
+
     }
+        public void Stopanim()
+        {
+          animator.SetBool("Dead",false);
+         Time.timeScale = 0;
+
+
+        }
 
    
 
