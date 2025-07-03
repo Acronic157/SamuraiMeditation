@@ -1390,7 +1390,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.7109213, y: 0.2565993, z: -15.081043}
+  m_LocalPosition: {x: -3.6606462, y: 0.2565993, z: -15.081043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12428,7 +12428,7 @@ GameObject:
   - component: {fileID: 1216567224}
   - component: {fileID: 1216567223}
   - component: {fileID: 1216567222}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Platforms
   m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
@@ -20743,7 +20743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -259.99988, y: -222.99997}
+  m_AnchoredPosition: {x: -259.99988, y: -223}
   m_SizeDelta: {x: -1411.34, y: -1000.76}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1635149035
@@ -22180,7 +22180,7 @@ Transform:
   m_GameObject: {fileID: 2110544870}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.7109213, y: 0.2565993, z: -15.081043}
+  m_LocalPosition: {x: -3.6606462, y: 0.2565993, z: -15.081043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
