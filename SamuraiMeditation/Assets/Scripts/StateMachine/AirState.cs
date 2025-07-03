@@ -40,11 +40,7 @@ public class AirState : PlayerState
         }
 
 
-        //if (Player.WallChecking()||Player.WallChecking2() && Player.rb.velocity.y < 0)
-        //{
-        //    StateMachine.ChangeState(Player.WallSlide);
-        //    return;
-        //}
+       
 
         if (Player.GroundCheck())
         {

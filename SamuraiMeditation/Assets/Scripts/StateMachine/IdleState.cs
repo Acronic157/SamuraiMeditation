@@ -31,10 +31,7 @@ public class IdleState : PlayerState
     {
         base.Update();
 
-        if (Player.rb.velocity.y > 0)
-        {
-            StateMachine.ChangeState(Player.air);
-        }
+       
 
         if (Player.xInput != 0 && Player.GroundCheck())
         {
@@ -44,7 +41,7 @@ public class IdleState : PlayerState
 
         else if (Player.xInput != 0 && !Player.GroundCheck())
         {
-            //Debug.Log("It worked");
+           
             StateMachine.ChangeState(Player.air);
         }
 
@@ -59,7 +56,7 @@ public class IdleState : PlayerState
         if (Input.GetKeyDown(KeyCode.Space) && Player.GroundCheck())
         {
 
-            //Debug.Log("Jump pressed");
+            
             Player.rb.velocity = new Vector2(0, Player.JumpHeight);
            
             StateMachine.ChangeState(Player.jump);
