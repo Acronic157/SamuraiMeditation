@@ -15,6 +15,7 @@ public class EnemyIdleState : EnemyState
     public override void Enter()
     {
         base.Enter();
+       
      
     }
 
@@ -29,12 +30,13 @@ public class EnemyIdleState : EnemyState
        if(!enemy.AttackRange)
        {
             enemyStateMachine.Changestate(enemy.WalkState);
-            enemy.StartCoroutine(changeDetect());
+           
        }
         else
         {
             enemyStateMachine.Changestate(this);
         }
+
        if(enemy.Attacknow)
         {
             enemyStateMachine.Changestate(enemy.Attack);

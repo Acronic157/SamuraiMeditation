@@ -5,12 +5,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("Way Points")]
-   
     public float Speed;
-    
-    
 
-    public EnemyStateMachine StateMachine {  get; private set; }
+    public EnemyStateMachine StateMachine { get; private set; }
     public EnemyIdleState StateIdle { get; private set; }
     public EnemyWalkState WalkState { get; private set; }
     public Enemyhurt hurtState { get; private set; }
@@ -19,8 +16,8 @@ public class Enemy : MonoBehaviour
     [Header("Components")]
     public Animator animator;
     public Rigidbody2D rb;
+
     [Header("RayCast")]
-    //RayCast
     public GameObject Ground;
     public GameObject wall;
     public LayerMask LayerMask;
@@ -28,7 +25,8 @@ public class Enemy : MonoBehaviour
     public LayerMask Player;
     public GameObject Attackray;
     public GameObject Attackhere;
-    
+    public GameObject Object;
+    public LayerMask Wall_Layer;
 
     [Header("Flipinfo")]
     public int Flipdir = 1;
@@ -40,7 +38,6 @@ public class Enemy : MonoBehaviour
     public int MaxHealth = 100;
     public int CurrentHealth;
 
-    // Attack Player
     [Header("Attack Player Info")]
     public Transform Attackmid;
     public float AttackArea;
@@ -51,10 +48,9 @@ public class Enemy : MonoBehaviour
         StateMachine = new EnemyStateMachine();
         StateIdle = new EnemyIdleState(this, StateMachine, "Idle");
         WalkState = new EnemyWalkState(this, StateMachine, "Walk");
-        hurtState = new Enemyhurt (this, StateMachine, "Hurt");
+        hurtState = new Enemyhurt(this, StateMachine, "Hurt");
         StateMachine.Initialized(StateIdle);
         Attack = new EnemyAttack(this, StateMachine, "Attack");
-        
     }
 
     public void Start()
@@ -66,36 +62,39 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         StateMachine.currentstate.Update();
-       
     }
 
     public void Flip()
     {
-        Flipdir = -1;
         Facingright = !Facingright;
+        Flipdir = Facingright ? 1 : -1;
         transform.Rotate(0, 180, 0);
-
     }
 
-
     public bool GroundCheck => Physics2D.Raycast(Ground.transform.position, Vector2.down, 0.3f, LayerMask);
-    public bool WallCheck => Physics2D.Raycast(wall.transform.position,Vector2.left, 0.5f, Slope_Wall);
-    public bool AttackRange => Physics2D.Raycast(Attackray.transform.position, Vector2.right, 5f, Player);
-    public bool Attacknow => Physics2D.Raycast(Attackhere.transform.position, Vector2.right, 1f, Player);
-
+    public bool WallCheck => Physics2D.Raycast(wall.transform.position, Vector2.right , 0.5f, Slope_Wall);
+    public bool AttackRange => Physics2D.Raycast(Attackray.transform.position, Vector2.right * Flipdir, 5f, Player);
+    public bool Attacknow => Physics2D.Raycast(Attackhere.transform.position, Vector2.right * Flipdir, 1f, Player);
+    public bool ObjectCheck => Physics2D.Raycast(Object.transform.position, Vector2.left, 0.5f, Wall_Layer);
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(Ground.transform.position, Ground.transform.position + Vector3.down * 0.3f);
+
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(wall.transform.position,wall.transform.position + Vector3.left * 0.5f);
+        Gizmos.DrawLine(wall.transform.position, wall.transform.position + Vector3.right * 0.5f);
+
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(Attackray.transform.position,Attackray.transform.position + Vector3.right * 5f);
+        Gizmos.DrawLine(Attackray.transform.position, Attackray.transform.position + Vector3.right * Flipdir * 5f);
+
         Gizmos.color = Color.gray;
-        Gizmos.DrawLine(Attackhere.transform.position, Attackhere.transform.position + Vector3.right * 1f);
+        Gizmos.DrawLine(Attackhere.transform.position, Attackhere.transform.position + Vector3.right * Flipdir * 1f);
+
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(Attackmid.position, AttackArea);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(Object.transform.position, Object.transform.position + Vector3.left * 0.5f);
     }
 
     public void TakeDamage(int Damage)
@@ -107,7 +106,4 @@ public class Enemy : MonoBehaviour
             Debug.Log("Dead");
         }
     }
-
-   
-
 }

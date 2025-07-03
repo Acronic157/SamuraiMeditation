@@ -28,11 +28,23 @@ public class EnemyWalkState : EnemyState
         if(enemy.WallCheck)
         {
             enemy.Flip();
-           enemy.Flipdir = 1;
+            enemy.Flipdir = -1;
+           
+            enemy.rb.velocity = Vector2.zero;
             enemyStateMachine.Changestate(enemy.StateIdle);
 
-            enemy.rb.velocity = Vector2.zero;
+           
         }
+
+        if(enemy.ObjectCheck)
+        {
+            enemy.Flip();
+            enemy.Flipdir = 1;
+            enemy.rb.velocity = Vector2.zero;
+            enemyStateMachine.Changestate(enemy.StateIdle);
+        }
+
+        
 
         if(!enemy.GroundCheck)
         {
