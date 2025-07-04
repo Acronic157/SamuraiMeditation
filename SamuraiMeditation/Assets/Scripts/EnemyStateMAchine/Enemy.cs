@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     [Header("Way Points")]
     public float Speed;
     public float Chasespeed;
+    public Vector3 Direction;
 
     public EnemyStateMachine StateMachine { get; private set; }
     public EnemyIdleState StateIdle { get; private set; }
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
     public GameObject Attackhere;
     public GameObject Object;
     public LayerMask Wall_Layer;
+    public GameObject AttackrayLeft;
 
     [Header("Flipinfo")]
     public int Flipdir = 1;
@@ -44,6 +46,7 @@ public class Enemy : MonoBehaviour
     public Transform Attackmid;
     public float AttackArea;
     public LayerMask Players;
+    public player Player_GameObject;
 
     private void Awake()
     {
@@ -60,6 +63,8 @@ public class Enemy : MonoBehaviour
     {
         StateTimer -= Time.deltaTime;
         CurrentHealth = MaxHealth;
+       
+        
     }
 
     private void Update()
@@ -76,9 +81,10 @@ public class Enemy : MonoBehaviour
 
     public bool GroundCheck => Physics2D.Raycast(Ground.transform.position, Vector2.down, 0.3f, LayerMask);
     public bool WallCheck => Physics2D.Raycast(wall.transform.position, Vector2.right , 0.5f, Slope_Wall);
-    public bool AttackRange => Physics2D.Raycast(Attackray.transform.position, Vector2.right * Flipdir, 5f, Player);
-    public bool Attacknow => Physics2D.Raycast(Attackhere.transform.position, Vector2.right * Flipdir, 1f, Player);
+    public bool AttackRange => Physics2D.Raycast(Attackray.transform.position, Vector2.right , 5f, Player);
+    public bool Attacknow => Physics2D.Raycast(Attackhere.transform.position, Vector2.right *Flipdir , 1f, Player);
     public bool ObjectCheck => Physics2D.Raycast(Object.transform.position, Vector2.left, 0.5f, Wall_Layer);
+    public bool AttackRangeLeft => Physics2D.Raycast(AttackrayLeft.transform.position, Vector2.left, 5f, Player);
 
     private void OnDrawGizmos()
     {
@@ -89,7 +95,7 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawLine(wall.transform.position, wall.transform.position + Vector3.right * 0.5f);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(Attackray.transform.position, Attackray.transform.position + Vector3.right * Flipdir * 5f);
+        Gizmos.DrawLine(Attackray.transform.position, Attackray.transform.position + Vector3.right * 5f);
 
         Gizmos.color = Color.gray;
         Gizmos.DrawLine(Attackhere.transform.position, Attackhere.transform.position + Vector3.right * Flipdir * 1f);
@@ -98,6 +104,8 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(Attackmid.position, AttackArea);
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(Object.transform.position, Object.transform.position + Vector3.left * 0.5f);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(AttackrayLeft.transform.position, AttackrayLeft.transform.position + Vector3.left * 5f);
     }
 
     public void TakeDamage(int Damage)

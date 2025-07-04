@@ -1,52 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyIdleState : EnemyState
 {
-    
-    public EnemyIdleState(Enemy _enemy, EnemyStateMachine _enemyStateMachine, string _animboolname) : base(_enemy, _enemyStateMachine, _animboolname)
-    {
+    private float idleDuration = 3f;
+    private float idleTimer;
 
-    }
+    public EnemyIdleState(Enemy _enemy, EnemyStateMachine _enemyStateMachine, string _animboolname)
+        : base(_enemy, _enemyStateMachine, _animboolname) { }
 
     public override void Enter()
     {
         base.Enter();
-       
-     
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
+        idleTimer = idleDuration;
+        enemy.rb.velocity = Vector2.zero; // Stop movement
     }
 
     public override void Update()
     {
         base.Update();
-        enemy.StartCoroutine(changeDetect());
 
-       if(enemy.Attacknow)
-       {
+        idleTimer -= Time.deltaTime;
+
+        // Check for player in attack range
+        if (enemy.Attacknow)
+        {
             enemyStateMachine.Changestate(enemy.Attack);
-       }
-       if (enemy.AttackRange)
-       {
-            enemy.rb.velocity = Vector2.zero;
+            return;
+        }
+
+        // Transition to Chase if player is detected
+        if (enemy.AttackRange || enemy.AttackRangeLeft)
+        {
             enemyStateMachine.Changestate(enemy.ChaseState);
-       }
-    }
+            return;
+        }
 
-    public IEnumerator changeDetect()
-    {
-        yield return new WaitForSeconds(3);
-        enemyStateMachine.Changestate(enemy.WalkState);
+        // Transition to Walk after idle duration
+        if (idleTimer <= 0)
+        {
+            enemyStateMachine.Changestate(enemy.WalkState);
+        }
     }
-   
-    
-
-   
 }

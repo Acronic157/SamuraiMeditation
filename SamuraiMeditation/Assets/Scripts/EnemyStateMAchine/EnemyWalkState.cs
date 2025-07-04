@@ -1,64 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyWalkState : EnemyState
 {
-    public EnemyWalkState(Enemy _enemy, EnemyStateMachine _enemyStateMachine, string _animboolname) : base(_enemy, _enemyStateMachine, _animboolname)
-    {
-
-    }
+    public EnemyWalkState(Enemy _enemy, EnemyStateMachine _enemyStateMachine, string _animboolname) 
+        : base(_enemy, _enemyStateMachine, _animboolname) { }
 
     public override void Enter()
     {
         base.Enter();
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
     public override void Update()
     {
         base.Update();
 
-        enemy.rb.velocity = new Vector2(enemy.Speed * enemy.Flipdir, enemy.rb.velocity.y);
+        // Smooth movement
+        float targetVelocityX = enemy.Speed * enemy.Flipdir;
+        float smoothedVelocityX = Mathf.Lerp(enemy.rb.velocity.x, targetVelocityX, Time.deltaTime * 5f);
+        enemy.rb.velocity = new Vector2(smoothedVelocityX, enemy.rb.velocity.y);
 
-        if(enemy.WallCheck)
+        // Check for walls/obstacles
+        if (enemy.WallCheck || enemy.ObjectCheck || !enemy.GroundCheck)
         {
             enemy.Flip();
-            enemy.Flipdir = -1;
-           
-            enemy.rb.velocity = Vector2.zero;
             enemyStateMachine.Changestate(enemy.StateIdle);
-
-           
+            return;
         }
 
-        if(enemy.ObjectCheck)
+        // Transition to Chase if player is detected
+        if (enemy.AttackRange || enemy.AttackRangeLeft)
         {
-            enemy.Flip();
-            enemy.Flipdir = 1;
-            enemy.rb.velocity = Vector2.zero;
-            enemyStateMachine.Changestate(enemy.StateIdle);
-        }
-
-        
-
-        if(!enemy.GroundCheck)
-        {
-           
-            enemyStateMachine.Changestate(enemy.StateIdle);
-            enemy.Flip();
-            enemy.rb.velocity = Vector2.zero;
-        }
-
-        if(enemy.AttackRange)
-        {
-            enemy.rb.velocity = Vector2.zero.normalized;
             enemyStateMachine.Changestate(enemy.ChaseState);
+            return;
         }
-       
     }
 }

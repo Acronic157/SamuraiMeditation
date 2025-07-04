@@ -124,6 +124,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6841398373289236992}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1 &3644879405304927493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6761954331375111110}
+  m_Layer: 0
+  m_Name: AttackRayLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6761954331375111110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3644879405304927493}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.014, y: -0.164, z: 1.0739863}
+  m_LocalScale: {x: 0.20161292, y: 0.21291563, z: 0.21676943}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6841398373289236992}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5144282144492525502
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +227,7 @@ Transform:
   - {fileID: 2642754208391431491}
   - {fileID: 229403956616487317}
   - {fileID: 3199785043630594779}
+  - {fileID: 6761954331375111110}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7011686613644015531
@@ -284,6 +316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 2
+  Chasespeed: 4
+  Direction: {x: 0, y: 0, z: 0}
   animator: {fileID: 577347495781349991}
   rb: {fileID: 4033562167414674161}
   Ground: {fileID: 1638426787846371079}
@@ -303,6 +337,7 @@ MonoBehaviour:
   Wall_Layer:
     serializedVersion: 2
     m_Bits: 64
+  AttackrayLeft: {fileID: 3644879405304927493}
   Flipdir: 1
   Facingright: 0
   StateTimer: 5
@@ -313,6 +348,7 @@ MonoBehaviour:
   Players:
     serializedVersion: 2
     m_Bits: 512
+  Player_GameObject: {fileID: 0}
 --- !u!50 &4033562167414674161
 Rigidbody2D:
   serializedVersion: 4
