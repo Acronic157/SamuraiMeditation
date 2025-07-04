@@ -6,12 +6,14 @@ public class Enemy : MonoBehaviour
 {
     [Header("Way Points")]
     public float Speed;
+    public float Chasespeed;
 
     public EnemyStateMachine StateMachine { get; private set; }
     public EnemyIdleState StateIdle { get; private set; }
     public EnemyWalkState WalkState { get; private set; }
     public Enemyhurt hurtState { get; private set; }
     public EnemyAttack Attack { get; private set; }
+    public EnemyChaseState ChaseState { get; private set; }
 
     [Header("Components")]
     public Animator animator;
@@ -51,6 +53,7 @@ public class Enemy : MonoBehaviour
         hurtState = new Enemyhurt(this, StateMachine, "Hurt");
         StateMachine.Initialized(StateIdle);
         Attack = new EnemyAttack(this, StateMachine, "Attack");
+        ChaseState = new EnemyChaseState(this, StateMachine, "Chase");
     }
 
     public void Start()
@@ -103,7 +106,8 @@ public class Enemy : MonoBehaviour
         StateMachine.Changestate(hurtState);
         if (CurrentHealth <= 0)
         {
-            Debug.Log("Dead");
+            StateMachine.Changestate(hurtState);
+            Destroy(this.gameObject,1);
         }
     }
 }

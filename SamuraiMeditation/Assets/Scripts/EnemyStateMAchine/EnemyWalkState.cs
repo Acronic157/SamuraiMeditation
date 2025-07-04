@@ -57,8 +57,8 @@ public class EnemyWalkState : EnemyState
         if(enemy.AttackRange)
         {
             enemy.rb.velocity = Vector2.zero.normalized;
-            enemyStateMachine.Changestate(enemy.StateIdle);
+            enemyStateMachine.Changestate(enemy.ChaseState);
         }
-        
+       
     }
 }

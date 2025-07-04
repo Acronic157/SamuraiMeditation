@@ -27,20 +27,17 @@ public class EnemyIdleState : EnemyState
     public override void Update()
     {
         base.Update();
-       if(!enemy.AttackRange)
-       {
-            enemyStateMachine.Changestate(enemy.WalkState);
-           
-       }
-        else
-        {
-            enemyStateMachine.Changestate(this);
-        }
+        enemy.StartCoroutine(changeDetect());
 
        if(enemy.Attacknow)
-        {
+       {
             enemyStateMachine.Changestate(enemy.Attack);
-        }
+       }
+       if (enemy.AttackRange)
+       {
+            enemy.rb.velocity = Vector2.zero;
+            enemyStateMachine.Changestate(enemy.ChaseState);
+       }
     }
 
     public IEnumerator changeDetect()

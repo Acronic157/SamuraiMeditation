@@ -17,7 +17,7 @@ public class Attack : PlayerState
 
         foreach(Collider2D Enemy in hitenemies)
         {
-            Enemy.GetComponent<Enemy>().TakeDamage(20);
+            Enemy.GetComponent<Enemy>().TakeDamage(100);
         }
     }
 
