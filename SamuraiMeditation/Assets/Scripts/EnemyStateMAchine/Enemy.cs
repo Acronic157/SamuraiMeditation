@@ -47,6 +47,7 @@ public class Enemy : MonoBehaviour
     public float AttackArea;
     public LayerMask Players;
     public player Player_GameObject;
+    
 
     private void Awake()
     {

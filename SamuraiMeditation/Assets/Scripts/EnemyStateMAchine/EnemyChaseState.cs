@@ -2,7 +2,7 @@
 
 public class EnemyChaseState : EnemyState
 {
-    public EnemyChaseState(Enemy _enemy, EnemyStateMachine _enemyStateMachine, string _animboolname) 
+    public EnemyChaseState(Enemy _enemy, EnemyStateMachine _enemyStateMachine, string _animboolname)
         : base(_enemy, _enemyStateMachine, _animboolname) { }
 
     public override void Enter()
@@ -14,25 +14,40 @@ public class EnemyChaseState : EnemyState
     {
         base.Update();
 
-        // Update direction every frame
-        Vector3 direction = (enemy.Player_GameObject.transform.position - enemy.transform.position).normalized;
-        enemy.Direction = direction;
+        // Direction to player
+        Vector3 directionToPlayer = (enemy.Player_GameObject.transform.position - enemy.transform.position).normalized;
+        enemy.Direction = directionToPlayer;
 
         // Smooth chase movement
         float targetVelocityX = enemy.Direction.x * enemy.Chasespeed;
         float smoothedVelocityX = Mathf.Lerp(enemy.rb.velocity.x, targetVelocityX, Time.deltaTime * 5f);
         enemy.rb.velocity = new Vector2(smoothedVelocityX, enemy.rb.velocity.y);
 
-        // Transition to Attack if in range
+        // Flip only if needed based on direction to player
+        if (enemy.Direction.x < 0 && !enemy.Facingright)
+        {
+            enemy.Flip();
+            enemy.Flipdir = -1;
+        }
+        else if (enemy.Direction.x > 0 && enemy.Facingright)
+        {
+            enemy.Flip();
+            enemy.Flipdir = 1;
+        }
+
+       
+
+        // Transition to Attack
         if (enemy.Attacknow)
         {
             enemyStateMachine.Changestate(enemy.Attack);
             return;
         }
 
-        // Return to Idle if player is out of range
+        // Return to Idle if player is out of detection range
         if (!enemy.AttackRange && !enemy.AttackRangeLeft)
         {
+          
             enemyStateMachine.Changestate(enemy.StateIdle);
             return;
         }

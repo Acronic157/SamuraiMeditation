@@ -20,7 +20,20 @@ public class EnemyWalkState : EnemyState
         enemy.rb.velocity = new Vector2(smoothedVelocityX, enemy.rb.velocity.y);
 
         // Check for walls/obstacles
-        if (enemy.WallCheck || enemy.ObjectCheck || !enemy.GroundCheck)
+        if (enemy.WallCheck)
+        {
+            enemy.Flip();
+            enemy.Flipdir = -1;
+            enemyStateMachine.Changestate(enemy.StateIdle);
+            return;
+        }
+        if(enemy.ObjectCheck)
+        {
+            enemy.Flip();
+            enemy.Flipdir = 1;
+            enemyStateMachine.Changestate(enemy.StateIdle);
+        }
+        if(!enemy.GroundCheck)
         {
             enemy.Flip();
             enemyStateMachine.Changestate(enemy.StateIdle);
@@ -33,5 +46,6 @@ public class EnemyWalkState : EnemyState
             enemyStateMachine.Changestate(enemy.ChaseState);
             return;
         }
+       
     }
 }
