@@ -23,7 +23,7 @@ public class player : MonoBehaviour
     public float xInput;
     public float Speed;
     public Rigidbody2D rb;
-    public float DashSpeed;
+   
 
     // Flipping
     public bool FlipDirright = true;
@@ -51,6 +51,14 @@ public class player : MonoBehaviour
     //Health System for player
     public int maxHealth = 100;
     public int CurrentHealth;
+    //Dash 
+    public float DashSpeed = 20f;
+    public float dashDuration = 0.5f;
+    public float DashCoolDown = 1f;
+    public float dashEndSpeed = 5f;
+    [HideInInspector] public float dashTimer;
+    [HideInInspector] public bool isDashing;
+    public float normalGravityScale = 3f;
 
     private void Awake()
     {
@@ -108,11 +116,16 @@ public class player : MonoBehaviour
     public void Run()
     {
         xInput = Input.GetAxis("Horizontal");
-        if (!(StateMachine.State is WallSlideState))
+        if (!(StateMachine.State is WallSlideState) && !isDashing) // Add !isDashing check
         {
             rb.velocity = new Vector2(xInput * Speed, rb.velocity.y);
         }
     }
+    public bool CanDash()
+    {
+        return GroundCheck() && !isDashing;
+    }
+
 
     public void FlipThePlayer()
     {

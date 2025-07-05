@@ -311,6 +311,13 @@ MonoBehaviour:
     m_Bits: 256
   maxHealth: 100
   CurrentHealth: 0
+  DashSpeed: 20
+  dashDuration: 0.5
+  DashCoolDown: 1
+  dashEndSpeed: 5
+  dashTimer: 0
+  isDashing: 0
+  normalGravityScale: 3
 --- !u!50 &72649744
 Rigidbody2D:
   serializedVersion: 4
