@@ -40,7 +40,7 @@ public class EnemyChaseState : EnemyState
         // Transition to Attack
         if (enemy.Attacknow)
         {
-            enemyStateMachine.Changestate(enemy.Attack);
+            enemyStateMachine.Changestate(enemy.StateIdle);
             return;
         }
 

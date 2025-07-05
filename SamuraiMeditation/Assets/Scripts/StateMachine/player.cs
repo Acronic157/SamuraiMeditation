@@ -17,11 +17,13 @@ public class player : MonoBehaviour
     public AirState air { get; private set; }
     public WallJump WallJump { get; private set; }
     public Dead dead { get; private set; }
+    public DashState Dash { get; private set; }
 
     // Movement
     public float xInput;
     public float Speed;
     public Rigidbody2D rb;
+    public float DashSpeed;
 
     // Flipping
     public bool FlipDirright = true;
@@ -67,6 +69,7 @@ public class player : MonoBehaviour
         air = new AirState(this, StateMachine, "Jump");
         WallJump = new WallJump(this, StateMachine, "Jump");
         dead = new Dead(this, StateMachine, "Dead");
+        Dash = new DashState(this, StateMachine, "Dash");
 
 
         StateMachine.Initialize(Idlestate);

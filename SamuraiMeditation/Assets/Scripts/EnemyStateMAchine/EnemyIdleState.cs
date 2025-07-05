@@ -22,7 +22,7 @@ public class EnemyIdleState : EnemyState
         idleTimer -= Time.deltaTime;
 
         // Check for player in attack range
-        if (enemy.Attacknow)
+        if (enemy.Attacknow || enemy.Attack.attackTimer == 0)
         {
             enemyStateMachine.Changestate(enemy.Attack);
             return;

@@ -45,7 +45,7 @@ public class WallSlideState : PlayerState
             Debug.Log("Walljump State activated");
                 
         }
-        //}
+        
 
         if (Input.GetKeyDown(KeyCode.S))
         {

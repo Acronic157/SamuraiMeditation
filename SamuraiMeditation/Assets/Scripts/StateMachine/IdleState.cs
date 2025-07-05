@@ -29,10 +29,16 @@ public class IdleState : PlayerState
 
     public override void Update()
     {
+
         base.Update();
 
-       
 
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            StateMachine.ChangeState(Player.Dash);
+            
+        }
         if (Player.xInput != 0 && Player.GroundCheck())
         {
             StateMachine.ChangeState(Player.WalkState);
