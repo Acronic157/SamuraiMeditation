@@ -312,7 +312,7 @@ MonoBehaviour:
   maxHealth: 100
   CurrentHealth: 0
   DashSpeed: 20
-  dashDuration: 0.5
+  dashDuration: 0.2
   DashCoolDown: 1
   dashEndSpeed: 5
   dashTimer: 0

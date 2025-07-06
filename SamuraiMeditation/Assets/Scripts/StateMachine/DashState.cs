@@ -21,8 +21,8 @@ public class DashState : PlayerState
         Player.rb.velocity = dashDirection * Player.DashSpeed;
         Player.rb.gravityScale = 0f;
 
-        // Debug to verify direction
-        Debug.Log("Dashing direction: " + dashDirection);
+       
+       
     }
 
     public override void Exit()
