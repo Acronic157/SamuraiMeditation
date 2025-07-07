@@ -6,17 +6,31 @@ public class Drone : MonoBehaviour
 {
     [SerializeField]private GameObject Bullet;
     [SerializeField]private Transform BulletPosition;
-    private float Timer = 2;
+    private float Timer = 1;
+    [SerializeField] private GameObject player;
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
 
     private void Update()
     {
-        Timer -= Time.deltaTime;
+        float Distance = Vector2.Distance(transform.position,player.transform.position);
 
-        if(Timer < 0)
+        if (Distance < 6)
         {
-            Timer = 2;
-            Instantiate(Bullet, BulletPosition.position,Quaternion.identity); 
+
+           Timer -= Time.deltaTime;
+
+            if(Timer < 0)
+            {
+              Timer = 1;
+              Instantiate(Bullet, BulletPosition.position,Quaternion.identity); 
+            }
+            
         }
+
     }
 
     
