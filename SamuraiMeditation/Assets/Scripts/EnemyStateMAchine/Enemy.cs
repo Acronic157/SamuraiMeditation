@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+
 
 public class Enemy : MonoBehaviour
 {
@@ -47,6 +49,13 @@ public class Enemy : MonoBehaviour
     public float AttackArea;
     public LayerMask Players;
     public player Player_GameObject;
+
+    [Header("Knockback")]
+    public float knockbackeForce = 25f;
+    public float KnockbackTimer;
+    public float KnockBackTimer2;
+
+   
     
 
     private void Awake()
@@ -64,7 +73,8 @@ public class Enemy : MonoBehaviour
     {
         StateTimer -= Time.deltaTime;
         CurrentHealth = MaxHealth;
-       
+        
+    
         
     }
 

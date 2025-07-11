@@ -1559,6 +1559,7 @@ GameObject:
   - component: {fileID: 651328378}
   - component: {fileID: 651328380}
   - component: {fileID: 651328379}
+  - component: {fileID: 651328381}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -1636,6 +1637,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &651328381
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651328377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 5
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &654886718
 GameObject:
   m_ObjectHideFlags: 0
@@ -3892,6 +3910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2110544872}
   - component: {fileID: 2110544871}
+  - component: {fileID: 2110544873}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -3917,7 +3936,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 72649747}
+  m_LookAt: {fileID: 0}
   m_Follow: {fileID: 72649747}
   m_Lens:
     FieldOfView: 34
@@ -3954,6 +3973,18 @@ Transform:
   - {fileID: 651328378}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2110544873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110544870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f21d667c2e0b6e249ab307379364e234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &258315928494200853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4080,6 +4111,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 206259155972163946, guid: 90c271377cb2bdd4ab4f97cab907cf8d, type: 3}
+      propertyPath: m_ImpulseDefinition.m_ImpulseShape
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1724270102821416126, guid: 90c271377cb2bdd4ab4f97cab907cf8d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.51

@@ -60,6 +60,8 @@ public class player : MonoBehaviour
     [HideInInspector] public bool isDashing;
     public float normalGravityScale = 3f;
 
+ 
+
     private void Awake()
     {
         // Get components

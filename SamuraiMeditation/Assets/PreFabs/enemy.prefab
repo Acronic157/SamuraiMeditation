@@ -287,6 +287,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   Player_GameObject: {fileID: 0}
+  knockbackeForce: 2
+  KnockbackTimer: 0
+  KnockBackTimer2: 0
 --- !u!50 &4992541208426124033
 Rigidbody2D:
   serializedVersion: 4
