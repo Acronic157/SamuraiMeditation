@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class player : MonoBehaviour
 {
@@ -23,7 +24,6 @@ public class player : MonoBehaviour
     public float xInput;
     public float Speed;
     public Rigidbody2D rb;
-   
 
     // Flipping
     public bool FlipDirright = true;
@@ -40,18 +40,19 @@ public class player : MonoBehaviour
     public float WallSlipSpeed;
 
     // Ignore Collision
-    public GameObject Ignorecol;
+    public List<Collider2D> IgnoreTheseColliders;
     private Collider2D playerCollider;
 
-    //Attack Range
+    // Attack Range
     public Transform Attackmid;
     public float AttackRange;
     public LayerMask Enemy;
 
-    //Health System for player
+    // Health System for player
     public int maxHealth = 100;
     public int CurrentHealth;
-    //Dash 
+
+    // Dash
     public float DashSpeed = 20f;
     public float dashDuration = 0.5f;
     public float DashCoolDown = 1f;
@@ -59,8 +60,6 @@ public class player : MonoBehaviour
     [HideInInspector] public float dashTimer;
     [HideInInspector] public bool isDashing;
     public float normalGravityScale = 3f;
-
- 
 
     private void Awake()
     {
@@ -81,21 +80,19 @@ public class player : MonoBehaviour
         dead = new Dead(this, StateMachine, "Dead");
         Dash = new DashState(this, StateMachine, "Dash");
 
-
         StateMachine.Initialize(Idlestate);
     }
 
     private void Start()
     {
-       
-        if (Ignorecol != null)
+        // Ignore collisions
+        if (playerCollider != null && IgnoreTheseColliders != null)
         {
-            Collider2D ignoreCollider = Ignorecol.GetComponent<Collider2D>();
-            if (playerCollider != null && ignoreCollider != null)
+            foreach (Collider2D col in IgnoreTheseColliders)
             {
-                Physics2D.IgnoreCollision(playerCollider, ignoreCollider, true);
+                if (col != null)
+                    Physics2D.IgnoreCollision(playerCollider, col, true);
             }
-           
         }
 
         CurrentHealth = maxHealth;
@@ -118,16 +115,16 @@ public class player : MonoBehaviour
     public void Run()
     {
         xInput = Input.GetAxis("Horizontal");
-        if (!(StateMachine.State is WallSlideState) && !isDashing) // Add !isDashing check
+        if (!(StateMachine.State is WallSlideState) && !isDashing)
         {
             rb.velocity = new Vector2(xInput * Speed, rb.velocity.y);
         }
     }
+
     public bool CanDash()
     {
         return GroundCheck() && !isDashing;
     }
-
 
     public void FlipThePlayer()
     {
@@ -160,9 +157,7 @@ public class player : MonoBehaviour
         Physics2D.Raycast(WallCheck.transform.position, Vector3.left, 0.6f, Wall);
 
     public bool GroundCheck() =>
-        Physics2D.Raycast(GroundDetect.transform.position, Vector2.down, 1.2f, Ground);
-
-   
+        Physics2D.Raycast(GroundDetect.transform.position, Vector2.down, 1.1f, Ground);
 
     private void OnDrawGizmos()
     {
@@ -173,9 +168,9 @@ public class player : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(WallCheck.transform.position, WallCheck.transform.position + Vector3.left * 0.6f);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(GroundDetect.transform.position, GroundDetect.transform.position + Vector3.down * 1.2f);
+        Gizmos.DrawLine(GroundDetect.transform.position, GroundDetect.transform.position + Vector3.down * 1.1f);
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(Attackmid.position,AttackRange);
+        Gizmos.DrawWireSphere(Attackmid.position, AttackRange);
     }
 
     public void TakeDamage(int Damage)
@@ -184,18 +179,12 @@ public class player : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             StateMachine.ChangeState(dead);
-           
         }
-
     }
-        public void Stopanim()
-        {
-          animator.SetBool("Dead",false);
-         Time.timeScale = 0;
 
-
-        }
-
-   
-
+    public void Stopanim()
+    {
+        animator.SetBool("Dead", false);
+        Time.timeScale = 0;
+    }
 }

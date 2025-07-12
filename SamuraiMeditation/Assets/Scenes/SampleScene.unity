@@ -253,7 +253,13 @@ MonoBehaviour:
     m_Bits: 8
   JumpHeight: 15
   WallSlipSpeed: 0
-  Ignorecol: {fileID: 911993807}
+  IgnoreTheseColliders:
+  - {fileID: 1017095394}
+  - {fileID: 654886720}
+  - {fileID: 1112097608}
+  - {fileID: 911993808}
+  - {fileID: 423948716}
+  - {fileID: 1105228332}
   Attackmid: {fileID: 456874154}
   AttackRange: 0.66
   Enemy:
@@ -391,7 +397,7 @@ Transform:
   m_GameObject: {fileID: 72649741}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.0015339802, z: -0, w: -0.99999887}
-  m_LocalPosition: {x: -5.03, y: -1.995, z: -5.08}
+  m_LocalPosition: {x: -5.03, y: -3.05, z: -5.08}
   m_LocalScale: {x: 4.96, y: 4.696696, z: 4.613197}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1169,7 +1175,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.9136224, y: 0.2565993, z: -15.081043}
+  m_LocalPosition: {x: -3.9136224, y: -0.7984004, z: -15.081043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3966,7 +3972,7 @@ Transform:
   m_GameObject: {fileID: 2110544870}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.9136224, y: 0.2565993, z: -15.081043}
+  m_LocalPosition: {x: -3.9136224, y: -0.7984004, z: -15.081043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

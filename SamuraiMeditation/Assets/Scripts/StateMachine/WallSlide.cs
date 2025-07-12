@@ -32,11 +32,7 @@ public class WallSlideState : PlayerState
             StateMachine.ChangeState(Player.Idlestate);
             Player.rb.gravityScale = 4f;
         }
-        //else
-        //{
-        //    StateMachine.ChangeState(Player.WallSlide);
-        //    Debug.Log("WallSlide");
-
+        
            
         if (Input.GetKeyDown(KeyCode.Space))
         {
