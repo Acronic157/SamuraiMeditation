@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class DashState : PlayerState
 {
-    private Vector2 dashDirection;
+    private float DashDuration = 0.2f;
+    private float DashSpeed = 20f;
+
 
     public DashState(player _player, PlayerStateMachine _stateMachine, string _aniboolname) : base(_player, _stateMachine, _aniboolname)
     {
@@ -11,15 +13,7 @@ public class DashState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Player.dashTimer = Player.dashDuration;
-        Player.isDashing = true;
-
-        // Determine dash direction based on facing direction (more precise)
-        dashDirection = Player.FlipDirright ? Vector2.right : Vector2.left;
-
-        // Immediately apply dash velocity
-        Player.rb.velocity = dashDirection * Player.DashSpeed;
-        Player.rb.gravityScale = 0f;
+       
 
        
        
@@ -28,21 +22,24 @@ public class DashState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        Player.isDashing = false;
-        Player.rb.gravityScale = 4f;
-
-        // Apply end speed in dash direction
-        Player.rb.velocity = new Vector2(dashDirection.x * Player.dashEndSpeed, 0);
+        Player.rb.velocity = Vector2.zero;
+      
     }
 
     public override void Update()
     {
         base.Update();
-        Player.dashTimer -= Time.deltaTime;
 
-        if (Player.dashTimer <= 0)
+        Player.rb.velocity = new Vector2(DashSpeed * Player.Flip, 0f);
+
+
+        DashDuration -= Time.deltaTime;
+
+        if ( DashDuration <= 0 )
         {
             StateMachine.ChangeState(Player.Idlestate);
+            DashDuration = 0.2f;
         }
+        
     }
 }

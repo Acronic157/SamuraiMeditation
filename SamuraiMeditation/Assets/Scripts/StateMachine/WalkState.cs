@@ -10,7 +10,7 @@ public class WalkState : PlayerState
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Player.CanDash())
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             StateMachine.ChangeState(Player.Dash);
         }
