@@ -138,10 +138,12 @@ public class player : MonoBehaviour
         if (xInput < 0 && FlipDirright)
         {
             FlipThePlayer();
+
         }
         else if (xInput > 0 && !FlipDirright)
         {
             FlipThePlayer();
+            Flip = 1;
         }
     }
 

@@ -25,6 +25,11 @@ public class AirState : PlayerState
     {
         base.Update();
 
+        if(Input.GetKey(KeyCode.K) && !Player.WallChecking()&& !Player.WallChecking2() && !Player.GroundCheck())
+        {
+            StateMachine.ChangeState(Player.Attack);
+        }
+
         if (Player.WallChecking() && Player.rb.velocity.y < 0 && wallSlideRight == false)
         {
             wallSlideRight = true;
@@ -39,12 +44,10 @@ public class AirState : PlayerState
             StateMachine.ChangeState(Player.WallSlide);
         }
 
-
-       
-
         if (Player.GroundCheck())
         {
             StateMachine.ChangeState(Player.Idlestate);
         }
+
     }
 }
