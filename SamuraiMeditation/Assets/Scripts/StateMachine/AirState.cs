@@ -47,6 +47,7 @@ public class AirState : PlayerState
         if (Player.GroundCheck())
         {
             StateMachine.ChangeState(Player.Idlestate);
+            Player.Particle.Play();
         }
 
     }

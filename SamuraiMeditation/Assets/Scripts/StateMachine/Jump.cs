@@ -9,17 +9,20 @@ public class Jump : PlayerState
     public override void Enter()
     {
         base.Enter();
+        Player.Particle.Play();
     }
 
     public override void Exit()
     {
         base.Exit();
+       
     }
 
     public override void Update()
     {
         base.Update();
-        if(Player.rb.velocity.y < 0)
+        
+        if (Player.rb.velocity.y < 0)
         {
             StateMachine.ChangeState(Player.air);
         }

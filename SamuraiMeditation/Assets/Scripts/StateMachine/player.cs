@@ -52,6 +52,8 @@ public class player : MonoBehaviour
     public int maxHealth = 100;
     public int CurrentHealth;
 
+    public ParticleSystem Particle;
+
 
     private void Awake()
     {
