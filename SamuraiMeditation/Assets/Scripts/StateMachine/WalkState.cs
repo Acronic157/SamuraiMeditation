@@ -11,6 +11,7 @@ public class WalkState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        
         Player.rb.velocity = Vector3.zero;
     }
 

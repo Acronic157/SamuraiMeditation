@@ -41,14 +41,22 @@ public class WallSlideState : PlayerState
            
         }
         
-       if(Player.xInput != 0 && Player.Flip != Player.xInput)
-       {
+        if(Player.xInput != 0 && Player.Flip != Player.xInput)
+        {
             StateMachine.ChangeState(Player.Idlestate);
-       }
+        }
 
-       if(Player.xInput != 0 && Player.Flip == Player.xInput)
+        if(Player.xInput != 0 && Player.Flip == Player.xInput)
         {
             StateMachine.ChangeState(Player.WallSlide);
         }
+
+        else if(Player.WallChecking == false)
+        {
+            StateMachine.ChangeState(Player.air);
+        }
+
+        if (Player.xInput != 0 && !Player.WallChecking) { StateMachine.ChangeState(Player.Idlestate); }
+
     }
 }

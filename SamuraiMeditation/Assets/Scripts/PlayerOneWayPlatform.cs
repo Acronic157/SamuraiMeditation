@@ -20,7 +20,8 @@ public class PlayerOneWayPlatform : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
+            Debug.Log("S key pressed");
         {
             if (oneWayPlatformComposite != null)
             {
@@ -31,8 +32,10 @@ public class PlayerOneWayPlatform : MonoBehaviour
 
     private IEnumerator DisableCollisionTemporarily()
     {
+        
         Physics2D.IgnoreCollision(playerCollider, oneWayPlatformComposite, true);
         yield return new WaitForSeconds(waitForSeconds);
         Physics2D.IgnoreCollision(playerCollider, oneWayPlatformComposite, false);
+        Debug.Log("Disabled");
     }
 }
