@@ -13,8 +13,7 @@ public class WallSlideState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        
-
+      
     }
 
     public override void Exit()
@@ -43,8 +42,13 @@ public class WallSlideState : PlayerState
         }
         
        if(Player.xInput != 0 && Player.Flip != Player.xInput)
-        {
+       {
             StateMachine.ChangeState(Player.Idlestate);
+       }
+
+       if(Player.xInput != 0 && Player.Flip == Player.xInput)
+        {
+            StateMachine.ChangeState(Player.WallSlide);
         }
     }
 }

@@ -25,7 +25,7 @@ public class AirState : PlayerState
     {
         base.Update();
 
-        if (Player.WallChecking && Player.xInput == 0)
+        if (Player.WallChecking)
         {
             StateMachine.ChangeState(Player.WallSlide);
         }

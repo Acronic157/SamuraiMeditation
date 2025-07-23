@@ -3,6 +3,7 @@ using UnityEngine.Windows;
 
 public class WalkState : PlayerState
 {
+    private bool _isWalking = false;    
     public WalkState(player _player, PlayerStateMachine _stateMachine, string _aniboolname) : base(_player, _stateMachine, _aniboolname)
     {
     }
@@ -21,9 +22,22 @@ public class WalkState : PlayerState
     public override void Update()
     {
         base.Update();
-        
-        Player. rb.velocity = new Vector2(Player.xInput * Player.Speed, Player.rb.velocity.y);
 
+         Player.rb.velocity = new Vector2(Player.xInput * Player.Speed, Player.rb.velocity.y);
+
+        if (Mathf.Abs(Player.xInput) > 0.1f)
+        {
+            _isWalking = true;
+        }
+        else if(Mathf.Abs(Player.xInput) < 0.1f)
+        {
+            _isWalking = false;
+        }
+        if(_isWalking == false)
+        {
+            Player.rb.velocity = new Vector2(0, 0);
+
+        }
         if (UnityEngine.Input.GetKeyDown(KeyCode.LeftShift))
         {
             StateMachine.ChangeState(Player.Dash);

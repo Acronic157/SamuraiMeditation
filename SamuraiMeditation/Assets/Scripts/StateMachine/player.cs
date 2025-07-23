@@ -96,7 +96,7 @@ public class player : MonoBehaviour
 
     private void Update()
     {
-        xInput = Input.GetAxis("Horizontal");
+        xInput = Input.GetAxisRaw("Horizontal");
         StateMachine.State.Update();
         FlipController();
         animator.SetFloat("yVelocity", rb.velocity.y);
