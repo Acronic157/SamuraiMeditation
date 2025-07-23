@@ -9,8 +9,8 @@ public class IdleState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Player.air.wallSlideLeft = false;
-        Player.air.wallSlideRight = false;
+       
+
     }
 
     public override void Update()
@@ -21,11 +21,11 @@ public class IdleState : PlayerState
         {
             StateMachine.ChangeState(Player.Dash);
         }
-        if (Player.xInput != 0 && Player.GroundCheck())
+        if (Player.xInput != 0 && Player.GroundCheck)
         {
             StateMachine.ChangeState(Player.WalkState);
         }
-        else if (Player.xInput != 0 && !Player.GroundCheck())
+        else if (Player.xInput != 0 && !Player.GroundCheck)
         {
             StateMachine.ChangeState(Player.air);
         }
@@ -34,9 +34,9 @@ public class IdleState : PlayerState
             StateMachine.ChangeState(Player.Attack);
             Player.rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && Player.GroundCheck())
+        if (Input.GetKeyDown(KeyCode.Space) && Player.GroundCheck)
         {
-            Player.rb.velocity = new Vector2(0, Player.JumpHeight);
+           
             StateMachine.ChangeState(Player.jump);
         }
     }

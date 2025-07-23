@@ -57,6 +57,7 @@ public class player : MonoBehaviour
 
     private void Awake()
     {
+        
         // Get components
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -79,6 +80,7 @@ public class player : MonoBehaviour
 
     private void Start()
     {
+       
         // Ignore collisions
         if (playerCollider != null && IgnoreTheseColliders != null)
         {
@@ -94,7 +96,7 @@ public class player : MonoBehaviour
 
     private void Update()
     {
-        Run();
+        xInput = Input.GetAxis("Horizontal");
         StateMachine.State.Update();
         FlipController();
         animator.SetFloat("yVelocity", rb.velocity.y);
@@ -103,17 +105,12 @@ public class player : MonoBehaviour
     public void SetVelocity(float _xVelocity, float _yVelocity)
     {
         rb.velocity = new Vector2(_xVelocity, _yVelocity);
-        FlipController();
     }
 
-    public void Run()
-    {
-        xInput = Input.GetAxis("Horizontal");
-        if (!(StateMachine.State is WallSlideState))
-        {
-            rb.velocity = new Vector2(xInput * Speed, rb.velocity.y);
-        }
-    }
+   
+    
+        
+   
 
    
 
@@ -143,13 +140,12 @@ public class player : MonoBehaviour
         Attack.AttackStopp();
     }
 
-    public bool WallChecking() =>
-        Physics2D.Raycast(WallCheck.transform.position, Vector3.right, 0.5f, Wall);
+   
 
-    public bool WallChecking2() =>
-        Physics2D.Raycast(WallCheck.transform.position, Vector3.left, 0.6f, Wall);
+    public bool WallChecking =>
+        Physics2D.Raycast(WallCheck.transform.position, Vector3.right * Flip, 0.3f, Wall);
 
-    public bool GroundCheck() =>
+   public bool GroundCheck =>
         Physics2D.Raycast(GroundDetect.transform.position, Vector2.down, 1.1f, Ground);
 
     private void OnDrawGizmos()
@@ -157,9 +153,7 @@ public class player : MonoBehaviour
         if (WallCheck == null) return;
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(WallCheck.transform.position, WallCheck.transform.position + Vector3.right * 0.5f);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(WallCheck.transform.position, WallCheck.transform.position + Vector3.left * 0.6f);
+        Gizmos.DrawLine(WallCheck.transform.position, WallCheck.transform.position + Vector3.right * Flip * 0.3f);
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(GroundDetect.transform.position, GroundDetect.transform.position + Vector3.down * 1.1f);
         Gizmos.color = Color.white;

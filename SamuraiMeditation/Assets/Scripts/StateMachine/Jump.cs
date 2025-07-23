@@ -9,6 +9,7 @@ public class Jump : PlayerState
     public override void Enter()
     {
         base.Enter();
+        Player.rb.velocity = new Vector2(Player.rb.velocity.x, Player.JumpHeight);
         Player.Particle.Play();
     }
 

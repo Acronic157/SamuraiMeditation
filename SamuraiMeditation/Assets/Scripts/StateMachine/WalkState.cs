@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class WalkState : PlayerState
 {
@@ -6,12 +7,24 @@ public class WalkState : PlayerState
     {
     }
 
+    public override void Enter()
+    {
+        base.Enter();
+        Player.rb.velocity = Vector3.zero;
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+    }
+
     public override void Update()
     {
         base.Update();
-       
+        
+        Player. rb.velocity = new Vector2(Player.xInput * Player.Speed, Player.rb.velocity.y);
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (UnityEngine.Input.GetKeyDown(KeyCode.LeftShift))
         {
             StateMachine.ChangeState(Player.Dash);
         }
@@ -19,17 +32,17 @@ public class WalkState : PlayerState
         {
             StateMachine.ChangeState(Player.Idlestate);
         }
-        if (Input.GetKeyDown(KeyCode.K))
+        if (UnityEngine.Input.GetKeyDown(KeyCode.K))
         {
             StateMachine.ChangeState(Player.Attack);
             Player.rb.constraints = RigidbodyConstraints2D.FreezePositionX;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && Player.GroundCheck())
+        if (UnityEngine.Input.GetKeyDown(KeyCode.Space) && Player.GroundCheck)
         {
-            Player.rb.velocity = new Vector2(0, Player.JumpHeight);
+           
             StateMachine.ChangeState(Player.jump);
         }
-        if (!Player.GroundCheck())
+        if (!Player.GroundCheck)
         {
             StateMachine.ChangeState(Player.air);
         }

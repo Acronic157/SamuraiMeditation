@@ -13,50 +13,38 @@ public class WallSlideState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Player.rb.gravityScale = 2f;
-        Player.rb.velocity = Vector2.zero;
         
+
     }
 
     public override void Exit()
     {
         base.Exit();
+       
     }
 
     public override void Update()
     {
         base.Update();
 
-        if (Player.GroundCheck())
-        {
-            StateMachine.ChangeState(Player.Idlestate);
-            Player.rb.gravityScale = 4f;
-        }
-        
-           
         if (Input.GetKeyDown(KeyCode.Space))
         {
-                
+           
             StateMachine.ChangeState(Player.WallJump);
-            Debug.Log("Walljump State activated");
-                
+            return;
+        }
+
+        Player.rb.velocity = new Vector2(0, Player.rb.velocity.y * 0.7f);
+
+        if (Player.GroundCheck)
+        {
+            StateMachine.ChangeState(Player.Idlestate);
+           
         }
         
-
-        if (Input.GetKeyDown(KeyCode.S))
+       if(Player.xInput != 0 && Player.Flip != Player.xInput)
         {
-            Player.rb.gravityScale = 4f;
-            Player.rb.velocity = new Vector2(Player.rb.velocity.x, Player.rb.velocity.y);
-            StateMachine.ChangeState(Player.air);
-
+            StateMachine.ChangeState(Player.Idlestate);
         }
-         Player.xInput = 0;
-
-
-
-
-
-
-
     }
 }
