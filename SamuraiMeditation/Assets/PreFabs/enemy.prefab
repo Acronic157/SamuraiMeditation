@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1724270102821416126}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1 &2282499439459584888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 382930462148964015}
+  m_Layer: 8
+  m_Name: BloodSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &382930462148964015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2282499439459584888}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.08, y: -0.125, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1724270102821416126}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4114348470572630708
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +197,7 @@ Transform:
   - {fileID: 7023623158571875140}
   - {fileID: 6292747892016246123}
   - {fileID: 7719177571112055584}
+  - {fileID: 382930462148964015}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1544959678910387071
@@ -290,6 +322,8 @@ MonoBehaviour:
   knockbackeForce: 2
   KnockbackTimer: 0
   KnockBackTimer2: 0
+  bloodDecal: {fileID: 5884927280746867666, guid: 2e68759150d04d84cbb1f25c379d2839, type: 3}
+  bloodSpawn: {fileID: 382930462148964015}
 --- !u!50 &4992541208426124033
 Rigidbody2D:
   serializedVersion: 4

@@ -55,6 +55,10 @@ public class Enemy : MonoBehaviour
     public float KnockbackTimer;
     public float KnockBackTimer2;
 
+    [Header("Blood")]
+    public Transform bloodDecal;
+    public Transform bloodSpawn;
+
    
     
 
@@ -126,6 +130,9 @@ public class Enemy : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             StateMachine.Changestate(hurtState);
+           
+            Instantiate(bloodDecal,bloodSpawn.position, Quaternion.identity);
+           
             Destroy(this.gameObject,1);
         }
     }

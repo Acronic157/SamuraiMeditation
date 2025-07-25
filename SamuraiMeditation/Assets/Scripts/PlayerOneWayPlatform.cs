@@ -36,6 +36,6 @@ public class PlayerOneWayPlatform : MonoBehaviour
         Physics2D.IgnoreCollision(playerCollider, oneWayPlatformComposite, true);
         yield return new WaitForSeconds(waitForSeconds);
         Physics2D.IgnoreCollision(playerCollider, oneWayPlatformComposite, false);
-        Debug.Log("Disabled");
+       
     }
 }
