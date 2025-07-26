@@ -58,6 +58,7 @@ public class Enemy : MonoBehaviour
     [Header("Blood")]
     public Transform bloodDecal;
     public Transform bloodSpawn;
+    public ParticleSystem blood;
 
    
     
@@ -129,9 +130,10 @@ public class Enemy : MonoBehaviour
         StateMachine.Changestate(hurtState);
         if (CurrentHealth <= 0)
         {
+            blood.Play();
+            Instantiate(bloodDecal,bloodSpawn.position, Quaternion.identity);
             StateMachine.Changestate(hurtState);
            
-            Instantiate(bloodDecal,bloodSpawn.position, Quaternion.identity);
            
             Destroy(this.gameObject,1);
         }

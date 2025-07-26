@@ -55,8 +55,7 @@ public class player : MonoBehaviour
     public ParticleSystem Particle;
 
     //Blood Effect Attack
-    public Transform BloodSlash;
-    public Transform BloodTransform;
+    
 
 
     private void Awake()
