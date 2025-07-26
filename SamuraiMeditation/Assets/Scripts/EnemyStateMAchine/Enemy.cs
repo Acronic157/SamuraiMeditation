@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
     public player Player_GameObject;
 
     [Header("Knockback")]
-    public float knockbackeForce = 25f;
+    public float knockbackeForce = 100f;
     public float KnockbackTimer;
     public float KnockBackTimer2;
 

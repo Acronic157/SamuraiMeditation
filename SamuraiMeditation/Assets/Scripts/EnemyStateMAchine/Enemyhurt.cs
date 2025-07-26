@@ -15,11 +15,11 @@ public class Enemyhurt : EnemyState
         base.Enter();
         timer = hurtDuration;
         enemy.KnockbackTimer = 0.2f;
-        enemy.KnockBackTimer2 = 0.7f;
+        
        
         enemy.rb.velocity = Vector3.zero;
 
-        CineMachineShake.Instance.ShakaCamera(5f, 0.2f);
+        CineMachineShake.Instance.ShakaCamera(5f, 0.3f);
        
     }
 
@@ -28,24 +28,17 @@ public class Enemyhurt : EnemyState
         base.Update();
         timer -= Time.deltaTime;
         enemy.KnockbackTimer -= Time.deltaTime;
-        enemy.KnockBackTimer2 -= Time.deltaTime;
+      
 
-        if (timer <= 0)
+        if (enemy.KnockbackTimer <= 0)
         {
-            enemy.StateMachine.Changestate(enemy.StateIdle);
-        }
-        if(enemy.KnockbackTimer <= 0)
-        {
-            KnockBack();
-           
-            
-           
+            enemy.rb.velocity = new Vector2(enemy.knockbackeForce * 3* -enemy.Flipdir, 0f);
+            return;
+
         }
 
-        if(enemy.KnockBackTimer2 <= 0)
-        {
-            enemyStateMachine.Changestate(enemy.StateIdle);
-        }
+
+
 
     }
 
@@ -55,12 +48,5 @@ public class Enemyhurt : EnemyState
         
     }
 
-    public void KnockBack()
-    {
-        if (enemy.KnockbackTimer <= 0)
-        {
-            enemy.rb.velocity = new Vector2(enemy.knockbackeForce * -enemy.Flipdir, 0f);
-           
-        }
-    }
+   
 }

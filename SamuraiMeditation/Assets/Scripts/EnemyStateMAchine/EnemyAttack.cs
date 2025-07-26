@@ -17,7 +17,7 @@ public class EnemyAttack : EnemyState
         base.Enter();
 
         // Reset attack variables when entering attack state
-        attackTimer = 0.5f; 
+        attackTimer = 0.2f; 
         hasAttacked = false;
         animationTriggered = false;
 
@@ -56,7 +56,7 @@ public class EnemyAttack : EnemyState
             animationTriggered = true;
 
             // Reset timer for next attack
-            attackTimer = 0.5f;
+            attackTimer = 0.2f;
         }
         else if (animationTriggered && !IsAnimationPlaying())
         {
