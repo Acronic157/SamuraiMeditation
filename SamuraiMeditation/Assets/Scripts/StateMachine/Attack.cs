@@ -33,17 +33,13 @@ public class Attack : PlayerState
     public override void Update()
     {
         base.Update();
-        Player.rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+       Player.rb.velocity = new Vector2(0,0);
 
     }
 
     public void AttackStopp()
     {
         IsAttacking = false;
-        Player.rb.constraints = RigidbodyConstraints2D.None;
-        Player.rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-
         StateMachine.ChangeState(Player.Idlestate);
     }
 }

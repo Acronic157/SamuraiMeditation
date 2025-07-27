@@ -51,7 +51,7 @@ public class WalkState : PlayerState
         if (UnityEngine.Input.GetKeyDown(KeyCode.K))
         {
             StateMachine.ChangeState(Player.Attack);
-            Player.rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            
         }
         if (UnityEngine.Input.GetKeyDown(KeyCode.Space) && Player.GroundCheck)
         {
