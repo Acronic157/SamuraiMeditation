@@ -13,6 +13,7 @@ public class Attack : PlayerState
     public override void Enter()
     {
         base.Enter();
+        Player.Slash.SetActive(true);
         Collider2D[] hitenemies =  Physics2D.OverlapCircleAll(Player.Attackmid.position, Player.AttackRange, Player.Enemy);
 
         foreach(Collider2D Enemy in hitenemies)
@@ -28,6 +29,7 @@ public class Attack : PlayerState
     public override void Exit()
     {
         base.Exit();
+        Player.Slash.SetActive(false);
     }
 
     public override void Update()

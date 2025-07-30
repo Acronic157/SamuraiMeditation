@@ -54,7 +54,7 @@ public class player : MonoBehaviour
 
     public ParticleSystem Particle;
 
-    //Blood Effect Attack
+    public GameObject Slash;
     
 
 
