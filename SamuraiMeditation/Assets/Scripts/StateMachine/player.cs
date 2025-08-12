@@ -149,7 +149,7 @@ public class player : MonoBehaviour
         Physics2D.Raycast(WallCheck.transform.position, Vector3.right * Flip, 0.3f, Wall);
 
    public bool GroundCheck =>
-        Physics2D.Raycast(GroundDetect.transform.position, Vector2.down, 1.1f, Ground);
+        Physics2D.Raycast(GroundDetect.transform.position, Vector2.down, 1.4f, Ground);
 
     private void OnDrawGizmos()
     {
@@ -158,7 +158,7 @@ public class player : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(WallCheck.transform.position, WallCheck.transform.position + Vector3.right * Flip * 0.3f);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(GroundDetect.transform.position, GroundDetect.transform.position + Vector3.down * 1.1f);
+        Gizmos.DrawLine(GroundDetect.transform.position, GroundDetect.transform.position + Vector3.down * 1.4f);
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(Attackmid.position, AttackRange);
     }
