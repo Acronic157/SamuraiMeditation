@@ -4708,10 +4708,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 6299758822764616094, guid: 90c271377cb2bdd4ab4f97cab907cf8d, type: 3}
-      propertyPath: Splatter
-      value: 
-      objectReference: {fileID: 7980904223509478238, guid: ab011c4229f96ca408c518edc1c166ab, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

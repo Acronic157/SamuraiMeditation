@@ -32,7 +32,7 @@ public class Enemyhurt : EnemyState
 
         if (enemy.KnockbackTimer <= 0)
         {
-            enemy.rb.velocity = new Vector2(enemy.knockbackeForce * 3* -enemy.Flipdir, 0f);
+            enemy.rb.velocity = new Vector2(enemy.knockbackeForce * -enemy.Flipdir, 0f);
             return;
 
         }
