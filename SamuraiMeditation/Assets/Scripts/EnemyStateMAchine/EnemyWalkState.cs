@@ -10,6 +10,11 @@ public class EnemyWalkState : EnemyState
         base.Enter();
     }
 
+    public override void Exit()
+    {
+        base.Exit();
+    }
+
     public override void Update()
     {
         base.Update();
