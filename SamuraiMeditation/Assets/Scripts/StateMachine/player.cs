@@ -2,6 +2,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections; 
 
 public class player : MonoBehaviour
 {
@@ -55,6 +56,10 @@ public class player : MonoBehaviour
     public ParticleSystem Particle;
 
     public GameObject Slash;
+
+    [Header("Timer")]
+    public float slowTimer;
+   
     
 
 
@@ -93,6 +98,7 @@ public class player : MonoBehaviour
                     Physics2D.IgnoreCollision(playerCollider, col, true);
             }
         }
+        slowTimer = 5f;
 
         CurrentHealth = maxHealth;
     }
@@ -103,6 +109,8 @@ public class player : MonoBehaviour
         StateMachine.State.Update();
         FlipController();
         animator.SetFloat("yVelocity", rb.velocity.y);
+       
+        SlowTime();
     }
 
     public void SetVelocity(float _xVelocity, float _yVelocity)
@@ -176,6 +184,30 @@ public class player : MonoBehaviour
     {
         animator.SetBool("Dead", false);
         Time.timeScale = 0;
+    }
+    
+    void SlowTime()
+    {
+        slowTimer -= Time.deltaTime;
+
+        if(slowTimer <= 0)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                Time.timeScale = 0.5f;
+                StartCoroutine(slowmotion());
+
+            }
+
+        }
+       
+    }
+
+    IEnumerator slowmotion()
+    {
+        
+        yield return new WaitForSecondsRealtime(5);
+        Time.timeScale = 1f;
     }
 
    
